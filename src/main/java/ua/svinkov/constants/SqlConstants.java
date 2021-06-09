@@ -1,6 +1,6 @@
 package ua.svinkov.constants;
 
-public class Constants {
+public class SqlConstants {
 	
 	//SQL
 	public final static String FIND_ALL_COURSE = "SELECT courses.*, topics.topic, users.* "
@@ -26,7 +26,7 @@ public class Constants {
 
 	public final static String INSERT_USER_COURSES = "insert into users_courses(studentid,courseid) values(?,?)";
 
-	public final static String INSERT_COURSE = "insert into courses(course,topicid,teacherid,data_start,data_stop,descr)"
+	public final static String INSERT_COURSE = "insert into courses(course,topicid,teacherid,date_start,date_stop,descr)"
 			+ " values(?,?,?,?,?,?)";
 
 	public final static String FIND_COURSE_BY_ID = "select * "

@@ -52,7 +52,7 @@
 								<td>${allcources.description}</td>
 								<td><input type="submit" formmethod="post"
 									class="btn btn-warning"
-									formaction="${pageContext.request.contextPath}/courseedit"
+									formaction="${pageContext.request.contextPath}/courseedit?edit=${allcources.courseid}"
 									name="edit"
 									value="<fmt:message key="admin_basis_jsp.button.edit" />"></td>
 								<td><input type="submit" formmethod="post"

@@ -1,6 +1,6 @@
 package ua.svinkov.model.dao.impl;
 
-import ua.svinkov.constants.Constants;
+import ua.svinkov.constants.SqlConstants;
 import ua.svinkov.model.dao.UserDao;
 import ua.svinkov.model.dao.mapper.UserMapper;
 import ua.svinkov.model.entity.User;
@@ -19,7 +19,7 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public void create(User entity) {
-		try (PreparedStatement pstmt = connection.prepareStatement(Constants.INSERT_USER)) {
+		try (PreparedStatement pstmt = connection.prepareStatement(SqlConstants.INSERT_USER)) {
 			pstmt.setString(1, entity.getLogin());
 			pstmt.setString(2, entity.getPassword());
 			pstmt.setString(3, entity.getEmail());
@@ -35,7 +35,7 @@ public class JDBCUserDao implements UserDao {
     public User findById(int id) {
     	User user = null;
         ResultSet rs = null;
-        try (PreparedStatement st = connection.prepareStatement(Constants.FIND_USER_BY_ID)) {
+        try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_USER_BY_ID)) {
             UserMapper mapper = new UserMapper();
             st.setInt(1, id);
             rs = st.executeQuery();
@@ -53,7 +53,7 @@ public class JDBCUserDao implements UserDao {
     public List<User> findAll() {
         List<User> users = new ArrayList<>();
         try (Statement st = connection.createStatement()) {
-            ResultSet rs = st.executeQuery(Constants.FIND_ALL_USERS);
+            ResultSet rs = st.executeQuery(SqlConstants.FIND_ALL_USERS);
             UserMapper usersMapper = new UserMapper();
             while (rs.next()) {
             	users.add(usersMapper
@@ -70,7 +70,7 @@ public class JDBCUserDao implements UserDao {
 
     @Override
     public void update(User entity) {
-        try (PreparedStatement st = connection.prepareStatement(Constants.UPDATE_USER)) {
+        try (PreparedStatement st = connection.prepareStatement(SqlConstants.UPDATE_USER)) {
             st.setString(1, entity.getLogin());
             st.setString(2, entity.getPassword());
             st.setString(3, entity.getEmail());
@@ -100,7 +100,7 @@ public class JDBCUserDao implements UserDao {
     public User findByLogin(String login) {
         User user = null;
         ResultSet rs = null;
-        try (PreparedStatement st = connection.prepareStatement(Constants.FIND_USER_BY_LOGIN)) {
+        try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_USER_BY_LOGIN)) {
             UserMapper mapper = new UserMapper();
             st.setString(1, login);
             rs = st.executeQuery();

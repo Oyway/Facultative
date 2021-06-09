@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import ua.svinkov.constants.Constants;
+import ua.svinkov.constants.SqlConstants;
 import ua.svinkov.model.dao.UserCoursesDao;
 import ua.svinkov.model.dao.mapper.UserCoursesMapper;
 import ua.svinkov.model.dao.mapper.UserMapper;
@@ -24,7 +24,7 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 
 	@Override
 	public void create(UserCourses entity) {
-		try (PreparedStatement pstmt = connection.prepareStatement(Constants.INSERT_USER_COURSES)) {
+		try (PreparedStatement pstmt = connection.prepareStatement(SqlConstants.INSERT_USER_COURSES)) {
 
 			pstmt.setInt(1, entity.getUser().getUserid());
 			pstmt.setInt(2, entity.getCourse().getCourseid());
@@ -44,8 +44,8 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 		List<UserCourses> user = new ArrayList<>();
         ResultSet rs = null;
         ResultSet rs1 = null;
-        try (PreparedStatement st = connection.prepareStatement(Constants.FIND_ALL_USER_COURSES_BY_USER_ID);
-        		PreparedStatement st1 = connection.prepareStatement(Constants.FIND_USER_BY_ID)) {
+        try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_ALL_USER_COURSES_BY_USER_ID);
+        		PreparedStatement st1 = connection.prepareStatement(SqlConstants.FIND_USER_BY_ID)) {
         	connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
             UserCoursesMapper mapper = new UserCoursesMapper();
             st.setInt(1, id);
@@ -74,7 +74,7 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 		List<UserCourses> user = new ArrayList<>();
         ResultSet rs = null;
         
-        try (PreparedStatement st = connection.prepareStatement(Constants.FIND_ALL_BY_TEACHER_ID)) {
+        try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_ALL_BY_TEACHER_ID)) {
             UserCoursesMapper mapper = new UserCoursesMapper();
             st.setInt(1, id);
             rs = st.executeQuery();
@@ -94,7 +94,7 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 	public boolean findUserCourse(int studentid, int courseid) {
 		boolean result = false;
         ResultSet rs = null;
-        try (PreparedStatement st = connection.prepareStatement(Constants.FIND_ALL_USER_COURSES_BY_USER_ID)) {
+        try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_ALL_USER_COURSES_BY_USER_ID)) {
             st.setInt(1, studentid);
             st.setInt(2, courseid);
             rs = st.executeQuery();
@@ -117,7 +117,7 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 
 	@Override
 	public void update(UserCourses entity) {
-        try (PreparedStatement st = connection.prepareStatement(Constants.UPDATE_USER_COURSES_MARK)) {
+        try (PreparedStatement st = connection.prepareStatement(SqlConstants.UPDATE_USER_COURSES_MARK)) {
             st.setInt(1, entity.getMark());
             st.setInt(2, entity.getUser().getUserid());
             st.setInt(3, entity.getCourse().getCourseid());

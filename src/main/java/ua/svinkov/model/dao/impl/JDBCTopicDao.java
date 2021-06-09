@@ -1,6 +1,6 @@
 package ua.svinkov.model.dao.impl;
 
-import ua.svinkov.constants.Constants;
+import ua.svinkov.constants.SqlConstants;
 import ua.svinkov.model.dao.TopicDao;
 import ua.svinkov.model.dao.mapper.TopicMapper;
 import ua.svinkov.model.entity.Topic;
@@ -34,7 +34,7 @@ public class JDBCTopicDao implements TopicDao {
     public List<Topic> findAll() {
     	List<Topic> topics = new ArrayList<>();
         ResultSet rs = null;
-        try (PreparedStatement st = connection.prepareStatement(Constants.FIND_ALL_TOPICS)) {
+        try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_ALL_TOPICS)) {
         	TopicMapper mapper = new TopicMapper();
             rs = st.executeQuery();
             while (rs.next())

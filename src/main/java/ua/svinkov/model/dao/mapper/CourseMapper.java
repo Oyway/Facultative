@@ -16,8 +16,8 @@ public class CourseMapper implements ObjectMapper<Course> {
 				.course(rs.getString("course"))
 				.topic(new TopicMapper().extractFromResultSet(rs))
 				.teacher(new UserMapper().extractFromResultSet(rs))
-				.dateStart(rs.getDate("data_start").toLocalDate())
-				.dateEnd(rs.getDate("data_stop").toLocalDate())
+				.dateStart(rs.getDate("date_start").toLocalDate())
+				.dateEnd(rs.getDate("date_stop").toLocalDate())
 				.description(rs.getString("descr"))
 				.build();
         return course;

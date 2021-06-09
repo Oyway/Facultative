@@ -3,21 +3,17 @@ package ua.svinkov.controller.Command;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import ua.svinkov.model.dao.DaoFactory;
-import ua.svinkov.model.dao.impl.JDBCDaoFactory;
-import ua.svinkov.model.dao.impl.JDBCUserCoursesDao;
+import ua.svinkov.constants.Path;
 import ua.svinkov.model.entity.Course;
 import ua.svinkov.model.entity.Topic;
 import ua.svinkov.model.entity.User;
-import ua.svinkov.model.entity.UserCourses;
+import ua.svinkov.model.entity.enums.Role;
 import ua.svinkov.service.CoursesService;
 import ua.svinkov.service.UserService;
 
@@ -27,7 +23,7 @@ public class GetAdminAllCoursesCommand implements Command{
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		String forward = "/WEB-INF/admin/adminbasis.jsp";
+		String forward = Path.PAGE_ADMIN_BASIS;
 		
 		CoursesService courseService = new CoursesService();
         UserService userService = new UserService();
@@ -36,12 +32,20 @@ public class GetAdminAllCoursesCommand implements Command{
         User user = (User)session.getAttribute("user");
         
         if(!CommandUtility.checkUserIsLogged(request, user.getLogin())){
-        	forward = "/login.jsp";
+        	if(user.getRole().equals(Role.ADMIN)) {
+				forward = Path.REDIRECT + Path.PAGE_ADMIN;
+			} else if(user.getRole().equals(Role.TEACHER)) {
+				forward = Path.REDIRECT + Path.PAGE_ADMIN;
+			} else if(user.getRole().equals(Role.STUDENT)) {
+				forward = Path.REDIRECT + Path.PAGE_USER_BASIS;
+			} else if(user.getRole().equals(Role.UNKNOWN)) {
+				forward = Path.REDIRECT + Path.PAGE_ERROR;
+			}
             return forward;
         }
-        String query = request.getQueryString();
-        if(Objects.nonNull(query) && query.startsWith("delete")) {
-        	int courseId = Integer.parseInt(request.getQueryString().replaceAll("delete=", ""));
+       // String query = request.getQueryString();
+        if(Objects.nonNull(request.getParameter("delete"))) {
+        	int courseId = Integer.parseInt(request.getParameter("delete"));
         	courseService.deleteCourse(courseId);
         }
         
@@ -52,14 +56,9 @@ public class GetAdminAllCoursesCommand implements Command{
 		
 		int tempPage = 1;
 		int recordsPerPage = 5;
-		if(Objects.nonNull(request.getQueryString()) && request.getQueryString().startsWith("page"))
-			tempPage = Integer.parseInt(request.getQueryString().replaceAll("page=", ""));
+		if(Objects.nonNull(request.getParameter("page")))
+			tempPage = Integer.parseInt(request.getParameter("page"));
 		int page = tempPage;
-
-		if (!CommandUtility.checkUserIsLogged(request, user.getLogin())) {
-			forward = "/WEB-INF/error.jsp";
-			return forward;
-		}
 		
 		Integer pageTotale = (int)Math.ceil(courses.size()*1.0/recordsPerPage);
 		log.trace("Found in DB: user --> " + user);

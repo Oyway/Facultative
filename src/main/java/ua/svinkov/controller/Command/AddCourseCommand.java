@@ -7,32 +7,32 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import ua.svinkov.constants.Path;
 import ua.svinkov.model.entity.Course;
 import ua.svinkov.model.entity.Topic;
 import ua.svinkov.model.entity.User;
 import ua.svinkov.service.CoursesService;
 
 public class AddCourseCommand implements Command {
-
+	
 	private static final Logger log = Logger.getLogger(AddCourseCommand.class);
 	
 	private static final String OPTION_TOPICS = "optionTopics";
 	private static final String COURSE = "course";
 	private static final String EMPTY_LINE = "";
-	private static final String OPTION_TEACHER = "optiontTeachers";
+	private static final String OPTION_TEACHER = "optionTeacher";
 	private static final String DATE_START = "datestart";
 	private static final String DATE_END = "dateend";
 	private static final String DESCRIPTION = "description";
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		String forward = "redirect:/admin";
 		String errorMessage = null;
 		if(!validation(request)) {
 			errorMessage = "Fields cannot be empty";
 			request.setAttribute("errorMessage", errorMessage);
 			log.error("errorMessage --> " + errorMessage);
-			return "/admin";
+			return Path.PAGE_ADMIN;
 		}
 
 		String course = request.getParameter(COURSE);
@@ -46,7 +46,7 @@ public class AddCourseCommand implements Command {
 			errorMessage = "End date cant be less then start date!";
 			request.setAttribute("errorMessage", errorMessage);
 			log.error("errorMessage --> " + errorMessage);
-			return "/admin";
+			return Path.PAGE_ADMIN;
 		}
 
 		Course c = Course.builder().course(course).topic(Topic.builder().topicId(topicId).build())
@@ -54,9 +54,8 @@ public class AddCourseCommand implements Command {
 				.description(description).build();
 
 		new CoursesService().createCourse(c);
-		forward = "redirect:/admin";
 
-		return forward;
+		return Path.REDIRECT + Path.PAGE_ADMIN;
 	}
 	
 	private boolean validation(HttpServletRequest request) {

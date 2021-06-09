@@ -34,7 +34,6 @@ public class Servlet extends HttpServlet {
         commands.put("exception" , new ExceptionCommand());
         commands.put("reg" , new RegistrationCommand());
         commands.put("student" , new GetActiveCoursesCommand());
-        //commands.put("?command=locale" , new SwitchLocalCommand());
         commands.put("allcourses" , new GetAllCoursesCommand());
         commands.put("reg_course", new RegOnCoursesCommand());
         commands.put("teacher", new GetTeacherCoursesCommand());
