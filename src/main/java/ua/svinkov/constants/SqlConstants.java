@@ -41,8 +41,9 @@ public class SqlConstants {
 	
 	public final static String FIND_COURSE_BY_ID_SORTED = "SELECT courses.courseid "
 			+ " FROM courses inner join users_courses on courses.courseid=users_courses.courseid "
+			+ " where teacherid=? "
 			+ " group by courseid "
-			+ " having count(*)>0"
+			+ " having count(*)>0 "
 			+ " order by count(*)";
 	
 	public final static String FIND_ALL_TOPICS = "SELECT * FROM topics";

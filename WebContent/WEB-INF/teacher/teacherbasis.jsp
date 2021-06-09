@@ -26,7 +26,7 @@
 					<option value="StudCount Asc"><fmt:message
 							key="teacherbasis_jsp.option.sort.asc" /></option>
 				</select> <input class="button" type="submit" formmethod="post"
-					formaction="${pageContext.request.contextPath}/teacher?update"
+					formaction="${pageContext.request.contextPath}/teacher?update=${optionSort}"
 					name="update"
 					value="<fmt:message key="teacherbasis_jsp.button.update"/>">
 			</form>

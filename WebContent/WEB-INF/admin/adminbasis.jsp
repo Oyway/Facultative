@@ -76,9 +76,9 @@
 								</c:forEach>
 						</select></td>
 						<td><input id="dateStart" type="date" value="${currentDate}"
-							min="${currentDate}" max="2022-12-31" name="datestart"></td>
+							min="${currentDate}" max="2022-12-31" name="dateStart"></td>
 						<td><input type="date" value="${currentDate}"
-							min="${dateStart} " max="2023-12-31" name="dateend"></td>
+							min="${dateStart} " max="2023-12-31" name="dateEnd"></td>
 						<td><input type="text" name="description"></td>
 						<td><input class="btn btn-success"
 							formaction="${pageContext.request.contextPath}/addCourse"

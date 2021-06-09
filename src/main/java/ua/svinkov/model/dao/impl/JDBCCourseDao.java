@@ -95,10 +95,11 @@ public class JDBCCourseDao implements CourseDao {
 		}
 	}
 	
-	public List<Integer> findCoursesIdSortBySt(){
+	public List<Integer> findCoursesIdSortBySt(int teacherid){
 		List<Integer> course = new ArrayList<>();
 		ResultSet rs = null;
 		try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_COURSE_BY_ID_SORTED)) {
+			st.setInt(1, teacherid);
 			rs = st.executeQuery();
 			while (rs.next())
 				course.add(rs.getInt("courseid"));

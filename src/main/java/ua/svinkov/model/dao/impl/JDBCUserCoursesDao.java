@@ -57,15 +57,11 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
             	if(rs1.next())
             		us.getCourse().setTeacher(new UserMapper().extractFromResultSet(rs1));
             	user.add(us);
+                rs1.close();
             }
-            
             rs.close();
-            rs1.close();
-        } catch (SQLException ex) {
-        	
-            ex.printStackTrace();
-        } finally {
-        	
+        } catch (SQLException e) {
+        	throw new RuntimeException(e);
         }
 		return user;
 	}
@@ -82,9 +78,8 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
             	user.add(mapper.extractFromResultSet(rs));
             }
             rs.close();
-        } catch (SQLException ex) {
-        	
-            ex.printStackTrace();
+        } catch (SQLException e) {
+        	throw new RuntimeException(e);
         } finally {
         	
         }
@@ -94,15 +89,13 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 	public boolean findUserCourse(int studentid, int courseid) {
 		boolean result = false;
         ResultSet rs = null;
-        try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_ALL_USER_COURSES_BY_USER_ID)) {
+        try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_USER_COURSES_BY_USER_AND_COURSE)) {
             st.setInt(1, studentid);
             st.setInt(2, courseid);
             rs = st.executeQuery();
             if (rs.next())
             	result = true;
-            
             rs.close();
-            st.close();
         } catch (SQLException e) {
         	throw new RuntimeException(e);
         }

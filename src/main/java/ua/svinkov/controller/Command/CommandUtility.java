@@ -9,8 +9,6 @@ import java.util.HashSet;
 
 class CommandUtility {
 	
-	private static HashSet<String> loggedUsers;
-	
     static void setUserRole(HttpServletRequest request,
                      Role role, String name) {
         HttpSession session = request.getSession();

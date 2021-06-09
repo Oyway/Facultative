@@ -17,64 +17,68 @@ import ua.svinkov.model.entity.enums.Role;
 import ua.svinkov.service.CoursesService;
 import ua.svinkov.service.UserService;
 
-public class GetAdminAllCoursesCommand implements Command{
-	
+public class GetAdminAllCoursesCommand implements Command {
+
 	private static final Logger log = Logger.getLogger(GetAdminAllCoursesCommand.class);
+
+	private static final String PARAM_PAGE = "page";
+	private static final String PARAM_DELETE = "delete";
+	private static final String ATTRIBUTE_USER = "user";
 
 	@Override
 	public String execute(HttpServletRequest request) {
 		String forward = Path.PAGE_ADMIN_BASIS;
-		
+
 		CoursesService courseService = new CoursesService();
-        UserService userService = new UserService();
-        
-        HttpSession session = request.getSession();
-        User user = (User)session.getAttribute("user");
-        
-        if(!CommandUtility.checkUserIsLogged(request, user.getLogin())){
-        	if(user.getRole().equals(Role.ADMIN)) {
+		UserService userService = new UserService();
+
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
+
+		if (!CommandUtility.checkUserIsLogged(request, user.getLogin())) {
+			if (user.getRole().equals(Role.ADMIN)) {
 				forward = Path.REDIRECT + Path.PAGE_ADMIN;
-			} else if(user.getRole().equals(Role.TEACHER)) {
+			} else if (user.getRole().equals(Role.TEACHER)) {
 				forward = Path.REDIRECT + Path.PAGE_ADMIN;
-			} else if(user.getRole().equals(Role.STUDENT)) {
+			} else if (user.getRole().equals(Role.STUDENT)) {
 				forward = Path.REDIRECT + Path.PAGE_USER_BASIS;
-			} else if(user.getRole().equals(Role.UNKNOWN)) {
+			} else if (user.getRole().equals(Role.UNKNOWN)) {
 				forward = Path.REDIRECT + Path.PAGE_ERROR;
 			}
-            return forward;
-        }
+			return forward;
+		}
 
-        if(Objects.nonNull(request.getParameter("delete"))) {
-        	int courseId = Integer.parseInt(request.getParameter("delete"));
-        	courseService.deleteCourse(courseId);
-        }
-        
-        List<Course> courses = courseService.findAll();
-        List<Topic> topics = courseService.findAllTopics();
-        List<User> teachers = userService.findAllTeachers();
-		log.trace("Found in DB: courses --> " + courses);	
-		
+		if (Objects.nonNull(request.getParameter(PARAM_DELETE))) {
+			int courseId = Integer.parseInt(request.getParameter(PARAM_DELETE));
+			courseService.deleteCourse(courseId);
+		}
+
+		List<Course> courses = courseService.findAll();
+		List<Topic> topics = courseService.findAllTopics();
+		List<User> teachers = userService.findAllTeachers();
+		log.trace("Found in DB: courses --> " + courses);
+
 		int tempPage = 1;
 		int recordsPerPage = 5;
-		if(Objects.nonNull(request.getParameter("page")))
-			tempPage = Integer.parseInt(request.getParameter("page"));
+		if (Objects.nonNull(request.getParameter(PARAM_PAGE)))
+			tempPage = Integer.parseInt(request.getParameter(PARAM_PAGE));
 		int page = tempPage;
-		
-		Integer pageTotale = (int)Math.ceil(courses.size()*1.0/recordsPerPage);
+
+		Integer pageTotale = (int) Math.ceil(courses.size() * 1.0 / recordsPerPage);
 		log.trace("Found in DB: user --> " + user);
-		
+
 		log.trace("Found in DB: courses --> " + courses);
 		log.trace("Found in courses: pageTotale --> " + pageTotale);
 		List<Course> coursesCurrentPage = new ArrayList<>();
-		for(int i = (page-1)*recordsPerPage; i < courses.size() && i < page*recordsPerPage; i++) {
+		for (int i = (page - 1) * recordsPerPage; i < courses.size() && i < page * recordsPerPage; i++) {
 			coursesCurrentPage.add(courses.get(i));
 		}
 		log.trace("Found in courses: coursesCurrentPage --> " + coursesCurrentPage);
 		session.setAttribute("allCourses", coursesCurrentPage);
 		session.setAttribute("allTopics", topics);
 		session.setAttribute("allTeachers", teachers);
-        request.setAttribute("noOfPages", pageTotale);
-        request.setAttribute("currentPage", page);
+		request.setAttribute("noOfPages", pageTotale);
+		request.setAttribute("currentPage", page);
 
 		return forward;
 	}

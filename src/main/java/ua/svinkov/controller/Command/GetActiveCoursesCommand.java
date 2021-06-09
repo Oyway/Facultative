@@ -18,13 +18,15 @@ import ua.svinkov.service.CoursesService;
 public class GetActiveCoursesCommand implements Command {
 
 	private static final Logger log = Logger.getLogger(LoginCommand.class);
+	
+	private static final String ATTRIBUTE_USER = "user";
 
 	@Override
 	public String execute(HttpServletRequest request) {
 		String forward = Path.PAGE_USER_BASIS;
 
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 
 		if (!CommandUtility.checkUserIsLogged(request, user.getLogin())) {
 			if(user.getRole().equals(Role.ADMIN)) {
