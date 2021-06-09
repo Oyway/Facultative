@@ -1,0 +1,118 @@
+<%--=========================================================================== 
+Header (top area). 
+===========================================================================--%>
+
+<%@ page import="ua.svinkov.model.entity.enums.Role"%>
+<%@ include file="/WEB-INF/jspf/directive/page.jspf"%>
+<%@ include file="/WEB-INF/jspf/directive/taglib.jspf"%>
+<div>
+	<div class="container p-3 my-3 bg-dark text-white">
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+			<ul class="navbar-nav">
+				<c:if test="${not empty user}">
+					<%--=========================================================================== 
+This is the user menu. 
+===========================================================================--%>
+
+					<div class="leftHeader">
+
+						<c:choose>
+
+							<%--=========================================================================== 
+This way we define the ADMIN MENU. 
+===========================================================================--%>
+							<c:when test="${role == 'ADMIN'}">
+								<li class="nav-item"><a
+									href="${pageContext.request.contextPath}/admin"> <fmt:message
+											key="header_jspf.anchor.all_courses" />
+								</a></li>
+								<li class="nav-item"><a
+									href="${pageContext.request.contextPath}/users"> <fmt:message
+											key="header_jspf.anchor.all_users" />
+								</a></li>
+							</c:when>
+
+
+							<%--=========================================================================== 
+This way we define the STUDENT MENU.
+===========================================================================--%>
+							<c:when test="${role == 'STUDENT'}">
+								<li class="nav-item"><a
+									href="${pageContext.request.contextPath}/student"> <fmt:message
+											key="header_jspf.anchor.my_courses" />
+								</a></li>
+								<li class="nav-item"><a
+									href="${pageContext.request.contextPath}/allcourses"> <fmt:message
+											key="header_jspf.anchor.all_courses" />
+								</a></li>
+							</c:when>
+
+							<%--=========================================================================== 
+This way we define the TEACHER MENU.
+===========================================================================--%>
+							<c:when test="${role == 'TEACHER'}">
+								<li class="nav-item"><a
+									href="${pageContext.request.contextPath}/teacher"> <fmt:message
+											key="header_jspf.anchor.my_courses" />
+								</a></li>
+								<li class="nav-item"><a class="nav-link" id="locales"
+									href="${pageContext.request.contextPath}/teacher?locales=en">en</a></li>
+								<li class="nav-item"><a class="nav-link" id="locales"
+									href="${pageContext.request.contextPath}/teacher?locales=ru">ru</a>
+								</li>
+							</c:when>
+						</c:choose>
+
+						<%--=========================================================================== 
+This way we define the settings anchor.
+===========================================================================--%>
+						<li class="nav-item"><a
+							href="${pageContext.request.contextPath}/profile"> <fmt:message
+									key="header_jspf.anchor.profile" />
+						</a></li>
+
+					</div>
+
+					<%--=========================================================================== 
+This way we define the menu located at the right of header. 
+===========================================================================--%>
+					<div id="rightHeader">
+						<li class="nav-item">
+							<%--=========================================================================== 
+Type user name if the user object is presented in the current session.  
+===========================================================================--%>
+							<c:out value="${user.firstname} ${user.surname}" /> <%--=========================================================================== 
+Type user role name if the user object is presented in the current session.  
+===========================================================================--%>
+							<c:if test="${not empty role}">
+								<c:out value="(${role})" />
+							</c:if>
+						</li>
+						<%--=========================================================================== 
+Type link to logout  
+===========================================================================--%>
+						<li class="nav-item"><a
+							href="${pageContext.request.contextPath}/logout"> <fmt:message
+									key="header_jspf.anchor.logout" />
+						</a></li>
+
+					</div>
+
+				</c:if>
+				<c:if test="${empty user and title ne 'Login'}">
+					<div id="rightHeader">
+						<li class="nav-item"><a class="nav-link" href="login.jsp"> <fmt:message
+									key="header_jspf.anchor.login" />
+						</a></li>
+					<li class="nav-item"><a class="nav-link" id="locales"
+						href="${pageContext.request.contextPath}/login?locales=en">en</a></li>
+					<li class="nav-item"><a class="nav-link" id="locales"
+						href="${pageContext.request.contextPath}/login?locales=ru">ru</a>
+					</li>
+					</div>
+				</c:if>
+
+			</ul>
+		</nav>
+	</div>
+</div>
