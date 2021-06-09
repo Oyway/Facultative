@@ -43,7 +43,7 @@ public class GetAdminAllCoursesCommand implements Command{
 			}
             return forward;
         }
-       // String query = request.getQueryString();
+
         if(Objects.nonNull(request.getParameter("delete"))) {
         	int courseId = Integer.parseInt(request.getParameter("delete"));
         	courseService.deleteCourse(courseId);
