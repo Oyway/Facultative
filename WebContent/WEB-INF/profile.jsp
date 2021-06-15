@@ -20,7 +20,7 @@
         <form>
 			<label for="login"><fmt:message key="profile_jsp.lable.login" />: </label> <output name="login">${user.login}</output><br/>
             <label for="email"><fmt:message key="profile_jsp.lable.email" />: </label> <output name="email">${user.email}</output><br/>
-            <label for="firstname"><fmt:message key="profile_jsp.lable.name" />: </label> <output name="firstname">${user.firstname}</output><br/>
+            <label for="firstname"><fmt:message key="profile_jsp.lable.name" />: </label> <output name="firstname">${user.firstName}</output><br/>
             <label for="surname"><fmt:message key="profile_jsp.lable.surname" />: </label> <output name="surname">${user.surname}</output><br/>
         </form>
         <p class="bg-danger text-white">${errorMessage}</p>

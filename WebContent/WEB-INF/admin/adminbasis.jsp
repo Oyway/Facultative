@@ -45,7 +45,7 @@
 								<td>${allcources.courseid}</td>
 								<td>${allcources.course}</td>
 								<td>${allcources.topic.topic}</td>
-								<td>${allcources.teacher.firstname}
+								<td>${allcources.teacher.firstName}
 									${allcources.teacher.surname}</td>
 								<td>${allcources.dateStart}</td>
 								<td>${allcources.dateEnd}</td>
@@ -72,7 +72,7 @@
 						<td><select name="optionTeacher"><c:forEach
 									items="${allTeachers}" var="allteachers" varStatus="status">
 									<option value="${allteachers.userid}">${allteachers.userid}
-										${allteachers.firstname} ${allteachers.surname}</option>
+										${allteachers.firstName} ${allteachers.surname}</option>
 								</c:forEach>
 						</select></td>
 						<td><input id="dateStart" type="date" value="${currentDate}"

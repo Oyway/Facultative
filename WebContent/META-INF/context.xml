@@ -34,7 +34,7 @@ One of the following: (see javadoc)
 NONE  READ_COMMITTED  READ_UNCOMMITTED  REPEATABLE_READ SERIALIZABLE
 (default - driver default)
 =============================================================-->
-	<Resource name="jdbc/ST4DB"
+	<Resource name="jdbc/Facultative"
              auth="Container"
              type="javax.sql.DataSource"
              username="root"
@@ -46,5 +46,7 @@ NONE  READ_COMMITTED  READ_UNCOMMITTED  REPEATABLE_READ SERIALIZABLE
              verifyServerCertificate="false"
              defaultTransactionIsolation="READ_COMMITTED"
              maxActive="100" maxIdle="30" maxWait="10000"/>
+             
+   	
 			
 </Context>

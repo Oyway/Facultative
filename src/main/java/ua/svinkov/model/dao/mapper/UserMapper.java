@@ -13,7 +13,7 @@ public class UserMapper implements ObjectMapper<User> {
 	@Override
 	public User extractFromResultSet(ResultSet rs) throws SQLException {
 		User user = User.builder().userid(rs.getInt("userid")).login(rs.getString("login"))
-					.password(rs.getString("pass")).email(rs.getString("email")).firstname(rs.getString("firstname"))
+					.password(rs.getString("pass")).email(rs.getString("email")).firstName(rs.getString("firstname"))
 					.surname(rs.getString("surname")).role(Role.valueOf(rs.getString("role").toUpperCase())).status(rs.getBoolean("status")).build();
 		return user;
 	}

@@ -2,9 +2,9 @@ package ua.svinkov.model.dao.impl;
 
 import ua.svinkov.model.dao.CourseDao;
 import ua.svinkov.model.dao.DaoFactory;
-import ua.svinkov.model.dao.UserDao;
 import ua.svinkov.model.dao.TopicDao;
 import ua.svinkov.model.dao.UserCoursesDao;
+import ua.svinkov.model.dao.UserDao;
 
 import javax.sql.DataSource;
 import java.sql.Connection;

@@ -81,7 +81,7 @@ This way we define the menu located at the right of header.
 							<%--=========================================================================== 
 Type user name if the user object is presented in the current session.  
 ===========================================================================--%>
-							<c:out value="${user.firstname} ${user.surname}" /> <%--=========================================================================== 
+							<c:out value="${user.firstName} ${user.surname}" /> <%--=========================================================================== 
 Type user role name if the user object is presented in the current session.  
 ===========================================================================--%>
 							<c:if test="${not empty role}">

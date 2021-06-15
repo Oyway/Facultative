@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import ua.svinkov.constants.Path;
 import ua.svinkov.model.entity.User;
 import ua.svinkov.model.entity.enums.Role;
 import ua.svinkov.service.UserService;
@@ -16,10 +17,15 @@ import ua.svinkov.service.UserService;
 public class ViewAllUsersCommand implements Command {
 	
 	private static final Logger log = Logger.getLogger(ViewAllUsersCommand.class);
+	
+	private static final String BLOCK = "block";
+	private static final String UNBLOCK = "unblock";
+	private static final String PAGE = "page";
+	private static final String UPDATE = "update";
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		String forward = "/WEB-INF/admin/users.jsp";
+		String forward = Path.PAGE_ADMIN_USERS;
 		
         UserService userService = new UserService();
         
@@ -27,44 +33,42 @@ public class ViewAllUsersCommand implements Command {
         User user = (User)session.getAttribute("user");
         
         if(!CommandUtility.checkUserIsLogged(request, user.getLogin())){
-        	forward = "/login.jsp";
-            return forward;
+            return Path.PAGE_LOGIN;
         }
-        forward = "redirect:/users";
+        forward = Path.REDIRECT + Path.PAGE_USERS;
         String query = request.getQueryString();
-        if(Objects.nonNull(query) && query.startsWith("block")) {
-        	int userId = Integer.parseInt(request.getQueryString().replaceAll("block=", ""));
+        if(Objects.nonNull(query) && query.startsWith(BLOCK)) {
+        	int userId = Integer.parseInt(request.getParameter(BLOCK));
         	User userUpdate = userService.findById(userId);
         	userUpdate.setStatus(false);
         	userService.updateUser(userUpdate);
         	return forward;
-        } else if(Objects.nonNull(query) && query.startsWith("unblock")) {
-        	int userId = Integer.parseInt(request.getQueryString().replaceAll("unblock=", ""));
+        } else if(Objects.nonNull(query) && query.startsWith(UNBLOCK)) {
+        	int userId = Integer.parseInt(request.getParameter(UNBLOCK));
         	User userUpdate = userService.findById(userId);
         	userUpdate.setStatus(true);
         	userService.updateUser(userUpdate);
         	return forward;
-        } else if(Objects.nonNull(query) && query.startsWith("update")) {
-        	int userId = Integer.parseInt(request.getQueryString().replaceAll("update=", ""));
+        } else if(Objects.nonNull(query) && query.startsWith(UPDATE)) {
+        	int userId = Integer.parseInt(request.getParameter(UPDATE));
         	String userRole = request.getParameter("optionRoles"+userId);
         	User userUpdate = userService.findById(userId);
         	userUpdate.setRole(Role.valueOf(userRole));
         	userService.updateUser(userUpdate);
         	return forward;
         }
-        forward = "/WEB-INF/admin/users.jsp";
+        forward = Path.PAGE_ADMIN_USERS;
         List<User> users = userService.findAll();
 		log.trace("Found in DB: users --> " + users);	
 		
 		int tempPage = 1;
 		int recordsPerPage = 7;
-		if(Objects.nonNull(request.getQueryString()) && request.getQueryString().startsWith("page"))
-			tempPage = Integer.parseInt(request.getQueryString().replaceAll("page=", ""));
+		if(Objects.nonNull(request.getParameter(PAGE)))
+			tempPage = Integer.parseInt(request.getParameter(PAGE));
 		int page = tempPage;
 
 		if (!CommandUtility.checkUserIsLogged(request, user.getLogin())) {
-			forward = "/WEB-INF/error.jsp";
-			return forward;
+			return Path.PAGE_LOGIN;
 		}
 
 		Integer pageTotale = (int)Math.ceil(users.size()*1.0/recordsPerPage);

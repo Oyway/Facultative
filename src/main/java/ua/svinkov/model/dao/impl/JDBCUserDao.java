@@ -23,7 +23,7 @@ public class JDBCUserDao implements UserDao {
 			pstmt.setString(1, entity.getLogin());
 			pstmt.setString(2, entity.getPassword());
 			pstmt.setString(3, entity.getEmail());
-			pstmt.setString(4, entity.getFirstname());
+			pstmt.setString(4, entity.getFirstName());
 			pstmt.setString(5, entity.getSurname());
 			pstmt.execute();
 		} catch (SQLException e) {
@@ -74,7 +74,7 @@ public class JDBCUserDao implements UserDao {
             st.setString(1, entity.getLogin());
             st.setString(2, entity.getPassword());
             st.setString(3, entity.getEmail());
-            st.setString(4, entity.getFirstname());
+            st.setString(4, entity.getFirstName());
             st.setString(5, entity.getSurname());
             st.setString(6, entity.getRole().toString().toLowerCase());
             st.setBoolean(7, entity.isStatus());
@@ -93,8 +93,7 @@ public class JDBCUserDao implements UserDao {
     /**
      * Returns a user with the given login.
      *
-     * @param login
-     *            User login.
+     * @param login User login.
      * @return User entity.
      */
     public User findByLogin(String login) {

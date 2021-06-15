@@ -39,7 +39,7 @@
 								<td>${users.userid}</td>
 								<td>${users.login}</td>
 								<td>${users.email}</td>
-								<td>${users.firstname}</td>
+								<td>${users.firstName}</td>
 								<td>${users.surname}</td>
 								<td>${users.role}</td>
 								<td>${users.status}</td>

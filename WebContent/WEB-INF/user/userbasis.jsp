@@ -42,7 +42,7 @@
 				<tr>
 					<td>${cources.course.course}</td>
 					<td>${cources.course.topic.topic}</td>
-					<td>${cources.course.teacher.firstname}
+					<td>${cources.course.teacher.firstName}
 						${cources.course.teacher.surname}</td>
 					<td>${cources.course.dateStart}</td>
 					<td>${cources.course.dateEnd}</td>
@@ -69,7 +69,7 @@
 				<tr>
 					<td>${cources.course.course}</td>
 					<td>${cources.course.topic.topic}</td>
-					<td>${cources.course.teacher.firstname}
+					<td>${cources.course.teacher.firstName}
 						${cources.course.teacher.surname}</td>
 					<td>${cources.course.dateStart}</td>
 					<td>${cources.course.dateEnd}</td>
@@ -96,7 +96,7 @@
 				<tr>
 					<td>${cources.course.course}</td>
 					<td>${cources.course.topic.topic}</td>
-					<td>${cources.course.teacher.firstname}
+					<td>${cources.course.teacher.firstName}
 						${cources.course.teacher.surname}</td>
 					<td>${cources.course.dateStart}</td>
 					<td>${cources.course.dateEnd}</td>

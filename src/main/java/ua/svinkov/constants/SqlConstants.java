@@ -34,7 +34,7 @@ public class SqlConstants {
 			+ "inner join users on users.userid=courses.teacherid where courseid = ?";
 	
 	public final static String UPDATE_COURSE = "UPDATE courses "
-    		+ " SET course=?, topicid=?,teacherid=?,data_start=?,data_stop=?,descr=? "
+    		+ " SET course=?, topicid=?,teacherid=?,date_start=?,date_stop=?,descr=? "
     		+ " where courseid=?";
 	
 	public final static String DELETE_COURSE = "DELETE FROM courses WHERE courseid=?";

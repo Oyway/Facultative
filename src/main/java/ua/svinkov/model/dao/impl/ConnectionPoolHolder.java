@@ -16,7 +16,7 @@ public class ConnectionPoolHolder {
 					try {
 						Context initContext = new InitialContext();
 	        			Context envContext  = (Context)initContext.lookup("java:/comp/env");
-						ds = (DataSource)envContext.lookup("jdbc/ST4DB");
+						ds = (DataSource)envContext.lookup("jdbc/Facultative");
 					} catch (NamingException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -26,8 +26,10 @@ public class ConnectionPoolHolder {
             }
         }
         return dataSource;
-
     }
 
+    public static void setDataSource(DataSource ds) {
+           dataSource = ds;
+    }
 
 }

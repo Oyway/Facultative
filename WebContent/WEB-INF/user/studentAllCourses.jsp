@@ -64,7 +64,7 @@
 					<tr>
 						<td>${allcources.course}</td>
 						<td>${allcources.topic.topic}</td>
-						<td>${allcources.teacher.firstname}
+						<td>${allcources.teacher.firstName}
 							${allcources.teacher.surname}</td>
 						<td>${allcources.dateStart}</td>
 						<td>${allcources.dateEnd}</td>

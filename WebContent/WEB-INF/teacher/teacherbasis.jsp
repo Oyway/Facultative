@@ -45,7 +45,7 @@
 					<c:forEach items="${students}" var="student">
 						<tr>
 							<td>${student.user.userid}</td>
-							<td>${student.user.firstname}${student.user.surname}</td>
+							<td>${student.user.firstName}${student.user.surname}</td>
 							<td>${student.mark}</td>
 							<td><form method="post" action="${pageContext.request.contextPath}/setMark?page=${currentPage}">
 									<input type="hidden" name="command" value="setMark" /> <input
