@@ -14,7 +14,7 @@ import org.apache.log4j.PropertyConfigurator;
 /**
  * Context listener.
  * 
- * @author D.Kolesnikov
+ * @author R.Svinkov
  * 
  */
 public class ContextListener implements ServletContextListener {
@@ -33,7 +33,7 @@ public class ContextListener implements ServletContextListener {
 		ServletContext servletContext = event.getServletContext();
 		initLog4J(servletContext);
 		initI18N(servletContext);
-	
+
 		log("Servlet context initialization finished");
 	}
 
@@ -42,7 +42,7 @@ public class ContextListener implements ServletContextListener {
 	 */
 	private void initI18N(ServletContext servletContext) {
 		log.debug("I18N subsystem initialization started");
-		
+
 		String localesValue = servletContext.getInitParameter("locales");
 		if (localesValue == null || localesValue.isEmpty()) {
 			log.warn("'locales' init parameter is empty, the default encoding will be used");
@@ -52,12 +52,12 @@ public class ContextListener implements ServletContextListener {
 			while (st.hasMoreTokens()) {
 				String localeName = st.nextToken();
 				locales.add(localeName);
-			}							
-			
+			}
+
 			log.debug("Application attribute set: locales --> " + locales);
 			servletContext.setAttribute("locales", locales);
-		}		
-		
+		}
+
 		log.debug("I18N subsystem initialization finished");
 	}
 
@@ -67,17 +67,15 @@ public class ContextListener implements ServletContextListener {
 	 * @param servletContext
 	 */
 	private void initLog4J(ServletContext servletContext) {
-		log("Log4J initialization started");
 		try {
-			PropertyConfigurator.configure(servletContext.getRealPath(
-							"WEB-INF/log4j.properties"));
+			log("Log4J initialization finished");
+			PropertyConfigurator.configure(servletContext.getRealPath("WEB-INF/log4j.properties"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
 		log("Log4J initialization finished");
 	}
-	
+
 	private void log(String msg) {
 		System.out.println("[ContextListener] " + msg);
 	}

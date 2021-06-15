@@ -1,11 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/admin?locales=en">en</a>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/admin?locales=ru">ru</a>
-
 <head>
 <%@ include file="/WEB-INF/jspf/header.jspf"%>
 
@@ -23,10 +22,10 @@
 <title><fmt:message key="admin_basis_jsp.title.header" /></title>
 </head>
 <body>
-	<div class="container">
+	<div>
 		<form method="post">
 			<main class="m-3">
-				<div class="row col-md-6">
+				<div class="row col-sm-6">
 					<table class="table table-dark table-hover table-striped">
 						<tr>
 							<th><fmt:message key="admin_basis_jsp.table.colname.id" /></th>
@@ -45,14 +44,14 @@
 								<td>${allcources.courseid}</td>
 								<td>${allcources.course}</td>
 								<td>${allcources.topic.topic}</td>
-								<td>${allcources.teacher.firstname}
+								<td>${allcources.teacher.firstName}
 									${allcources.teacher.surname}</td>
 								<td>${allcources.dateStart}</td>
 								<td>${allcources.dateEnd}</td>
 								<td>${allcources.description}</td>
 								<td><input type="submit" formmethod="post"
 									class="btn btn-warning"
-									formaction="${pageContext.request.contextPath}/courseedit"
+									formaction="${pageContext.request.contextPath}/courseedit?edit=${allcources.courseid}"
 									name="edit"
 									value="<fmt:message key="admin_basis_jsp.button.edit" />"></td>
 								<td><input type="submit" formmethod="post"
@@ -72,13 +71,13 @@
 						<td><select name="optionTeacher"><c:forEach
 									items="${allTeachers}" var="allteachers" varStatus="status">
 									<option value="${allteachers.userid}">${allteachers.userid}
-										${allteachers.firstname} ${allteachers.surname}</option>
+										${allteachers.firstName} ${allteachers.surname}</option>
 								</c:forEach>
 						</select></td>
 						<td><input id="dateStart" type="date" value="${currentDate}"
-							min="${currentDate}" max="2022-12-31" name="datestart"></td>
+							min="${currentDate}" max="2022-12-31" name="dateStart"></td>
 						<td><input type="date" value="${currentDate}"
-							min="${dateStart} " max="2023-12-31" name="dateend"></td>
+							min="${dateStart} " max="2023-12-31" name="dateEnd"></td>
 						<td><input type="text" name="description"></td>
 						<td><input class="btn btn-success"
 							formaction="${pageContext.request.contextPath}/addCourse"

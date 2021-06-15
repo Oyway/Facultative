@@ -9,26 +9,43 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import ua.svinkov.model.dao.DaoFactory;
-import ua.svinkov.model.dao.impl.JDBCDaoFactory;
-import ua.svinkov.model.dao.impl.JDBCUserCoursesDao;
+import ua.svinkov.constants.Path;
 import ua.svinkov.model.entity.User;
 import ua.svinkov.model.entity.UserCourses;
+import ua.svinkov.model.entity.enums.Role;
 import ua.svinkov.service.CoursesService;
 
-public class GetActiveCoursesCommand implements Command {
+/**
+ * Get active courses of user item
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class GetActiveCoursesCommand extends Command {
+
+	private static final long serialVersionUID = 3465301228439569669L;
 
 	private static final Logger log = Logger.getLogger(LoginCommand.class);
+	
+	private static final String ATTRIBUTE_USER = "user";
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		String forward = "/WEB-INF/user/userbasis.jsp";
+		String forward = Path.PAGE_USER_BASIS;
 
 		HttpSession session = request.getSession();
-		User user = (User) session.getAttribute("user");
+		User user = (User) session.getAttribute(ATTRIBUTE_USER);
 
 		if (!CommandUtility.checkUserIsLogged(request, user.getLogin())) {
-			forward = "/WEB-INF/error.jsp";
+			if(user.getRole().equals(Role.ADMIN)) {
+				forward = Path.REDIRECT + Path.PAGE_ADMIN;
+			} else if(user.getRole().equals(Role.TEACHER)) {
+				forward = Path.REDIRECT + Path.PAGE_ADMIN;
+			} else if(user.getRole().equals(Role.STUDENT)) {
+				forward = Path.REDIRECT + Path.PAGE_USER_BASIS;
+			} else if(user.getRole().equals(Role.UNKNOWN)) {
+				forward = Path.REDIRECT + Path.PAGE_ERROR;
+			}
 			return forward;
 		}
 

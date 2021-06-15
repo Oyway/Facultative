@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/student?locales=en">en</a>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/student?locales=ru">ru</a>
 <head>
 <%@ include file="/WEB-INF/jspf/header.jspf"%>
@@ -42,7 +42,7 @@
 				<tr>
 					<td>${cources.course.course}</td>
 					<td>${cources.course.topic.topic}</td>
-					<td>${cources.course.teacher.firstname}
+					<td>${cources.course.teacher.firstName}
 						${cources.course.teacher.surname}</td>
 					<td>${cources.course.dateStart}</td>
 					<td>${cources.course.dateEnd}</td>
@@ -69,7 +69,7 @@
 				<tr>
 					<td>${cources.course.course}</td>
 					<td>${cources.course.topic.topic}</td>
-					<td>${cources.course.teacher.firstname}
+					<td>${cources.course.teacher.firstName}
 						${cources.course.teacher.surname}</td>
 					<td>${cources.course.dateStart}</td>
 					<td>${cources.course.dateEnd}</td>
@@ -96,7 +96,7 @@
 				<tr>
 					<td>${cources.course.course}</td>
 					<td>${cources.course.topic.topic}</td>
-					<td>${cources.course.teacher.firstname}
+					<td>${cources.course.teacher.firstName}
 						${cources.course.teacher.surname}</td>
 					<td>${cources.course.dateStart}</td>
 					<td>${cources.course.dateEnd}</td>

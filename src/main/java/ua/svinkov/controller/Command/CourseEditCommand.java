@@ -1,68 +1,68 @@
 package ua.svinkov.controller.Command;
 
 import java.time.LocalDate;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
+import ua.svinkov.constants.Path;
 import ua.svinkov.model.entity.Course;
 import ua.svinkov.model.entity.Topic;
 import ua.svinkov.model.entity.User;
 import ua.svinkov.service.CoursesService;
-import ua.svinkov.service.UserService;
 
-public class CourseEditCommand implements Command{
-	
+/**
+ * Edit course item
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class CourseEditCommand extends Command {
+
+	private static final long serialVersionUID = 1524296463662484015L;
+
 	private static final Logger log = Logger.getLogger(CourseEditCommand.class);
+
+	private static final String PARAM_OPTION_TOPICS = "optionTopics";
+	private static final String PARAM_OPTION_TEACHER = "optionTeacher";
+	private static final String PARAM_DATE_START = "dateStart";
+	private static final String PARAM_DATE_END = "dateEnd";
+	private static final String PARAM_DESCRIPTION = "description";
+
+	private static final String PARAM_COURSE_ID = "courseId";
+	private static final String PARAM_COURSE_NAME = "courseName";
+	private static final String PARAM_EDIT = "edit";
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		String forward = "redirect:/admin";
 		CoursesService serv = new CoursesService();
-		if(Objects.nonNull(request.getQueryString()) && request.getQueryString().equals("edit")) {
-			Course course = Course.builder()
-					.courseid(Integer.parseInt(request.getParameter("courseId")))
-					.course(request.getParameter("courseName"))
-					.topic(Topic.builder().topicId(Integer.parseInt(request.getParameter("optionTopics"))).build())
-					.teacher(User.builder().userid(Integer.parseInt(request.getParameter("optionTeacher"))).build())
-					.dateStart(LocalDate.parse(request.getParameter("dateStart")))
-					.dateEnd(LocalDate.parse(request.getParameter("dateEnd")))
-					.description(request.getParameter("descr")).build();
+		if (Objects.nonNull(request.getQueryString()) && request.getQueryString().equals(PARAM_EDIT)) {
+			Course course = Course.builder().courseid(Integer.parseInt(request.getParameter(PARAM_COURSE_ID)))
+					.course(request.getParameter(PARAM_COURSE_NAME))
+					.topic(Topic.builder().topicId(Integer.parseInt(request.getParameter(PARAM_OPTION_TOPICS))).build())
+					.teacher(
+							User.builder().userid(Integer.parseInt(request.getParameter(PARAM_OPTION_TEACHER))).build())
+					.dateStart(LocalDate.parse(request.getParameter(PARAM_DATE_START)))
+					.dateEnd(LocalDate.parse(request.getParameter(PARAM_DATE_END)))
+					.description(request.getParameter(PARAM_DESCRIPTION)).build();
 			serv.updateCourse(course);
-			return forward;
+			return Path.REDIRECT + Path.PAGE_ADMIN;
 		}
-		Integer courseId = Integer.parseInt(request.getParameter("edit"));
+		Integer courseId = Integer.parseInt(request.getParameter(PARAM_EDIT));
 
-		String errorMessage = null;
-		forward = "/WEB-INF/admin/courseedit.jsp";
-		
-		
 		Course course = serv.findCourseById(courseId);
 		log.trace("Found in DB: course --> " + course);
-		
-		CoursesService courseService = new CoursesService();
-        UserService userService = new UserService();
-        
-        List<Course> courses = courseService.findAll();
-        List<Topic> topics = courseService.findAllTopics();
-        List<User> teachers = userService.findAllTeachers();
-        
-        request.setAttribute("courseId", course.getCourseid());
-		request.setAttribute("courseName", course.getCourse());
-		request.setAttribute("optionTopics", course.getTopic().getTopicId());
-		request.setAttribute("optionTeacher", course.getTeacher().getUserid());
-		request.setAttribute("dateStart", course.getDateStart());
-		request.setAttribute("dateEnd", course.getDateEnd());
-		request.setAttribute("descr", course.getDescription());
-		//User user = User.builder().userid(0).login(login).password(pass).email(email).firstname(firstname)
-		//		.surname(surname).role(null).build();
-		//new UserService().createUser(user);
-		//forward = "/login";
-		return forward;
+
+		request.setAttribute(PARAM_COURSE_ID, course.getCourseid());
+		request.setAttribute(PARAM_COURSE_NAME, course.getCourse());
+		request.setAttribute(PARAM_OPTION_TOPICS, course.getTopic().getTopicId());
+		request.setAttribute(PARAM_OPTION_TEACHER, course.getTeacher().getUserid());
+		request.setAttribute(PARAM_DATE_START, course.getDateStart());
+		request.setAttribute(PARAM_DATE_END, course.getDateEnd());
+		request.setAttribute(PARAM_DESCRIPTION, course.getDescription());
+		return Path.PAGE_COURSE_EDIT;
 	}
 
 }

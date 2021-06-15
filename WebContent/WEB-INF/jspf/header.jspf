@@ -14,19 +14,17 @@ Header (top area).
 This is the user menu. 
 ===========================================================================--%>
 
-					<div class="leftHeader">
-
 						<c:choose>
 
 							<%--=========================================================================== 
 This way we define the ADMIN MENU. 
 ===========================================================================--%>
 							<c:when test="${role == 'ADMIN'}">
-								<li class="nav-item"><a
+								<li class="nav-item"><a class="nav-link"
 									href="${pageContext.request.contextPath}/admin"> <fmt:message
 											key="header_jspf.anchor.all_courses" />
 								</a></li>
-								<li class="nav-item"><a
+								<li class="nav-item"><a class="nav-link"
 									href="${pageContext.request.contextPath}/users"> <fmt:message
 											key="header_jspf.anchor.all_users" />
 								</a></li>
@@ -37,11 +35,11 @@ This way we define the ADMIN MENU.
 This way we define the STUDENT MENU.
 ===========================================================================--%>
 							<c:when test="${role == 'STUDENT'}">
-								<li class="nav-item"><a
+								<li class="nav-item"><a class="nav-link"
 									href="${pageContext.request.contextPath}/student"> <fmt:message
 											key="header_jspf.anchor.my_courses" />
 								</a></li>
-								<li class="nav-item"><a
+								<li class="nav-item"><a class="nav-link"
 									href="${pageContext.request.contextPath}/allcourses"> <fmt:message
 											key="header_jspf.anchor.all_courses" />
 								</a></li>
@@ -51,37 +49,32 @@ This way we define the STUDENT MENU.
 This way we define the TEACHER MENU.
 ===========================================================================--%>
 							<c:when test="${role == 'TEACHER'}">
-								<li class="nav-item"><a
+								<li class="nav-item"><a class="nav-link"
 									href="${pageContext.request.contextPath}/teacher"> <fmt:message
 											key="header_jspf.anchor.my_courses" />
 								</a></li>
-								<li class="nav-item"><a class="nav-link" id="locales"
-									href="${pageContext.request.contextPath}/teacher?locales=en">en</a></li>
-								<li class="nav-item"><a class="nav-link" id="locales"
-									href="${pageContext.request.contextPath}/teacher?locales=ru">ru</a>
-								</li>
 							</c:when>
 						</c:choose>
 
 						<%--=========================================================================== 
 This way we define the settings anchor.
 ===========================================================================--%>
-						<li class="nav-item"><a
+						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/profile"> <fmt:message
 									key="header_jspf.anchor.profile" />
 						</a></li>
 
-					</div>
+					
 
 					<%--=========================================================================== 
 This way we define the menu located at the right of header. 
 ===========================================================================--%>
-					<div id="rightHeader">
+					
 						<li class="nav-item">
 							<%--=========================================================================== 
 Type user name if the user object is presented in the current session.  
 ===========================================================================--%>
-							<c:out value="${user.firstname} ${user.surname}" /> <%--=========================================================================== 
+							<c:out value="${user.firstName} ${user.surname}" /> <%--=========================================================================== 
 Type user role name if the user object is presented in the current session.  
 ===========================================================================--%>
 							<c:if test="${not empty role}">
@@ -91,7 +84,7 @@ Type user role name if the user object is presented in the current session.
 						<%--=========================================================================== 
 Type link to logout  
 ===========================================================================--%>
-						<li class="nav-item"><a
+						<li class="nav-item"><a class="nav-link"
 							href="${pageContext.request.contextPath}/logout"> <fmt:message
 									key="header_jspf.anchor.logout" />
 						</a></li>
@@ -100,15 +93,19 @@ Type link to logout
 
 				</c:if>
 				<c:if test="${empty user and title ne 'Login'}">
-					<div id="rightHeader">
-						<li class="nav-item"><a class="nav-link" href="login.jsp"> <fmt:message
-									key="header_jspf.anchor.login" />
-						</a></li>
-					<li class="nav-item"><a class="nav-link" id="locales"
-						href="${pageContext.request.contextPath}/login?locales=en">en</a></li>
-					<li class="nav-item"><a class="nav-link" id="locales"
+					<a class="nav-link" id="locales"
+						href="${pageContext.request.contextPath}/login?locales=en">en</a>
+					<a class="nav-link" id="locales"
 						href="${pageContext.request.contextPath}/login?locales=ru">ru</a>
-					</li>
+					<div id="rightHeader">
+						<li class="nav-item"><a class="nav-link" href="login.jsp">
+								<fmt:message key="header_jspf.anchor.login" />
+						</a></li>
+						<li class="nav-item"><a class="nav-link" href="reg.jsp">
+								<fmt:message key="header_jspf.anchor.reg" />
+						</a></li>
+
+
 					</div>
 				</c:if>
 

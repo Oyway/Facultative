@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/allcourses?locales=en">en</a>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/allcourses?locales=ru">ru</a>
 <head>
 <%@ include file="/WEB-INF/jspf/header.jspf"%>
@@ -64,7 +64,7 @@
 					<tr>
 						<td>${allcources.course}</td>
 						<td>${allcources.topic.topic}</td>
-						<td>${allcources.teacher.firstname}
+						<td>${allcources.teacher.firstName}
 							${allcources.teacher.surname}</td>
 						<td>${allcources.dateStart}</td>
 						<td>${allcources.dateEnd}</td>

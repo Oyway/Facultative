@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
-
+<a id="locales"
+	href="${pageContext.request.contextPath}/teacher?locales=en">en</a>
+<a id="locales"
+	href="${pageContext.request.contextPath}/teacher?locales=ru">ru</a>
 <head>
 <%@ include file="/WEB-INF/jspf/header.jspf"%>
 <title><fmt:message key="teacherbasis_jsp.title.header" /></title>
@@ -26,7 +29,7 @@
 					<option value="StudCount Asc"><fmt:message
 							key="teacherbasis_jsp.option.sort.asc" /></option>
 				</select> <input class="button" type="submit" formmethod="post"
-					formaction="${pageContext.request.contextPath}/teacher?update"
+					formaction="${pageContext.request.contextPath}/teacher?update=${optionSort}"
 					name="update"
 					value="<fmt:message key="teacherbasis_jsp.button.update"/>">
 			</form>
@@ -45,7 +48,7 @@
 					<c:forEach items="${students}" var="student">
 						<tr>
 							<td>${student.user.userid}</td>
-							<td>${student.user.firstname}${student.user.surname}</td>
+							<td>${student.user.firstName}${student.user.surname}</td>
 							<td>${student.mark}</td>
 							<td><form method="post" action="${pageContext.request.contextPath}/setMark?page=${currentPage}">
 									<input type="hidden" name="command" value="setMark" /> <input

@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/users?locales=en">en</a>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/users?locales=ru">ru</a>
 <head>
 <%@ include file="/WEB-INF/jspf/header.jspf"%>
@@ -24,7 +24,7 @@
 			action="${pageContext.request.contextPath}/users?update=${users.userid}">
 			<main class="m-3">
 				<div class="row col-md-6">
-					<table id="table" class="table table-striped table-bordered table-sm">
+					<table class="table table-dark table-hover table-striped">
 						<tr>
 							<th><fmt:message key="users_jsp.table.colname.id" /></th>
 							<th><fmt:message key="users_jsp.table.colname.login" /></th>
@@ -39,7 +39,7 @@
 								<td>${users.userid}</td>
 								<td>${users.login}</td>
 								<td>${users.email}</td>
-								<td>${users.firstname}</td>
+								<td>${users.firstName}</td>
 								<td>${users.surname}</td>
 								<td>${users.role}</td>
 								<td>${users.status}</td>
@@ -50,17 +50,20 @@
 								</select></td>
 								<td><input class="button" type="submit" formmethod="post"
 									formaction="${pageContext.request.contextPath}/users?update=${users.userid}"
-									name="update" value="<fmt:message key="users_jsp.button.update" />"></td>
+									name="update"
+									value="<fmt:message key="users_jsp.button.update" />"></td>
 								<td><c:choose>
 										<c:when test="${users.status == true}">
 											<input type="submit" formmethod="post"
 												formaction="${pageContext.request.contextPath}/users?block=${users.userid}"
-												name="status" value="<fmt:message key="users_jsp.button.block" />">
+												name="status"
+												value="<fmt:message key="users_jsp.button.block" />">
 										</c:when>
 										<c:when test="${users.status == false}">
 											<input type="submit" formmethod="post"
 												formaction="${pageContext.request.contextPath}/users?unblock=${users.userid}"
-												name="status" value="<fmt:message key="users_jsp.button.unblock" />">
+												name="status"
+												value="<fmt:message key="users_jsp.button.unblock" />">
 										</c:when>
 									</c:choose></td>
 							</tr>

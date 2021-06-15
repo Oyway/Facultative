@@ -2,13 +2,21 @@ package ua.svinkov.controller.Command;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class GetProfileCommand implements Command {
+import ua.svinkov.constants.Path;
+
+/**
+ * Get profile of user
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class GetProfileCommand extends Command {
+
+	private static final long serialVersionUID = 1627794896382193302L;
 
 	@Override
 	public String execute(HttpServletRequest request) {
-		String forward = "/WEB-INF/profile.jsp";
-		
-		return forward;
+		return Path.PAGE_PROFILE;
 	}
 
 }
