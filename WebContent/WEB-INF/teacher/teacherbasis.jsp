@@ -1,7 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
-
+<a id="locales"
+	href="${pageContext.request.contextPath}/teacher?locales=en">en</a>
+<a id="locales"
+	href="${pageContext.request.contextPath}/teacher?locales=ru">ru</a>
 <head>
 <%@ include file="/WEB-INF/jspf/header.jspf"%>
 <title><fmt:message key="teacherbasis_jsp.title.header" /></title>

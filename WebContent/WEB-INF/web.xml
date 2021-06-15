@@ -46,11 +46,11 @@
 		</init-param>
 		<init-param>
 			<param-name>common</param-name>
-			<param-value>logout ?command=locales locales  locale allcourses</param-value>
+			<param-value>logout allcourses</param-value>
 		</init-param>
 		<init-param>
 			<param-name>out-of-control</param-name>
-			<param-value>login ?command=locales locales  locale ?Page</param-value>
+			<param-value>login reg</param-value>
 		</init-param>
     </filter>
     <filter-mapping>

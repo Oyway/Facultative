@@ -17,7 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ua.svinkov.constants.Path;
-import ua.svinkov.controller.command.GetAdminAllCoursesCommand;
+import ua.svinkov.controller.Command.GetAdminAllCoursesCommand;
 import ua.svinkov.model.dao.impl.ConnectionPoolHolder;
 import ua.svinkov.model.entity.User;
 

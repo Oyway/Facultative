@@ -1,11 +1,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/admin?locales=en">en</a>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/admin?locales=ru">ru</a>
-
 <head>
 <%@ include file="/WEB-INF/jspf/header.jspf"%>
 
@@ -23,10 +22,10 @@
 <title><fmt:message key="admin_basis_jsp.title.header" /></title>
 </head>
 <body>
-	<div class="container">
+	<div>
 		<form method="post">
 			<main class="m-3">
-				<div class="row col-md-6">
+				<div class="row col-sm-6">
 					<table class="table table-dark table-hover table-striped">
 						<tr>
 							<th><fmt:message key="admin_basis_jsp.table.colname.id" /></th>

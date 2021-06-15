@@ -1,4 +1,4 @@
-package ua.svinkov.controller.command;
+package ua.svinkov.controller.Command;
 
 import org.apache.log4j.Logger;
 

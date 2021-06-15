@@ -6,7 +6,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ua.svinkov.controller.command.*;
+import ua.svinkov.controller.Command.AddCourseCommand;
+import ua.svinkov.controller.Command.Command;
+import ua.svinkov.controller.Command.CourseEditCommand;
+import ua.svinkov.controller.Command.ExceptionCommand;
+import ua.svinkov.controller.Command.GetActiveCoursesCommand;
+import ua.svinkov.controller.Command.GetAdminAllCoursesCommand;
+import ua.svinkov.controller.Command.GetAllCoursesCommand;
+import ua.svinkov.controller.Command.GetProfileCommand;
+import ua.svinkov.controller.Command.GetTeacherCoursesCommand;
+import ua.svinkov.controller.Command.LogOutCommand;
+import ua.svinkov.controller.Command.LoginCommand;
+import ua.svinkov.controller.Command.RegOnCoursesCommand;
+import ua.svinkov.controller.Command.RegistrationCommand;
+import ua.svinkov.controller.Command.SetMarkCommand;
+import ua.svinkov.controller.Command.ViewAllUsersCommand;
 
 import java.io.IOException;
 import java.util.HashMap;

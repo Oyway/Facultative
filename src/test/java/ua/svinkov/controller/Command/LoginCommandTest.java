@@ -17,7 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ua.svinkov.constants.Path;
-import ua.svinkov.controller.command.LoginCommand;
+import ua.svinkov.controller.Command.LoginCommand;
 import ua.svinkov.model.dao.impl.ConnectionPoolHolder;
 
 class LoginCommandTest {

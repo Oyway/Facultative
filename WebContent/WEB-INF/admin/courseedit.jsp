@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <html>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/teacher?locales=en">en</a>
-<a class="nav-link" id="locales"
+<a id="locales"
 	href="${pageContext.request.contextPath}/teacher?locales=ru">ru</a>
 <head>
 
@@ -51,9 +51,9 @@
 			<label for="dateEnd"><fmt:message
 					key="courseedit_jsp.lable.date_end" /></label><br /> <input type="date"
 				name="dateEnd" min="${dateStart}" value="${dateEnd}"
-				max="2023-12-31" name="dateend"><br /> <label for="descr"><fmt:message
+				max="2023-12-31" name="dateend"><br /> <label for="description"><fmt:message
 					key="courseedit_jsp.lable.descr" /></label><br /> <input type="text"
-				name="descr" value="${descr}" max="200"><br /> <input
+				name="description" value="${description}" max="200"><br /> <input
 				class="button" type="submit"
 				value="<fmt:message key="courseedit_jsp.button.descr" />">
 
