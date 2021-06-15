@@ -1,4 +1,4 @@
-package ua.svinkov.controller.Command;
+package ua.svinkov.controller.command;
 
 import java.util.Objects;
 
@@ -15,8 +15,15 @@ import ua.svinkov.model.entity.Course;
 import ua.svinkov.model.entity.User;
 import ua.svinkov.model.entity.UserCourses;
 
-public class RegOnCoursesCommand implements Command {
+/**
+ * Registration on courses for student command
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class RegOnCoursesCommand extends Command {
 
+	private static final long serialVersionUID = 916710903233248554L;
 	private static final Logger log = Logger.getLogger(RegOnCoursesCommand.class);
 
 	@Override

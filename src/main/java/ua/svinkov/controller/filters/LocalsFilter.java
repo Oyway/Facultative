@@ -14,6 +14,12 @@ import javax.servlet.jsp.jstl.core.Config;
 
 import org.apache.log4j.Logger;
 
+/**
+ * Locals filter
+ * 
+ * @author R.Svinkov
+ *
+ */
 public class LocalsFilter implements Filter {
 
 	private static final Logger log = Logger.getLogger(LocalsFilter.class);

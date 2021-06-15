@@ -1,4 +1,4 @@
-package ua.svinkov.controller.Command;
+package ua.svinkov.controller.command;
 
 import org.apache.log4j.Logger;
 
@@ -12,8 +12,15 @@ import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-public class LoginCommand implements Command {
+/**
+ * Login command
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class LoginCommand extends Command {
 
+	private static final long serialVersionUID = 8064577157966565411L;
 	private static final Logger log = Logger.getLogger(LoginCommand.class);
 
 	@Override

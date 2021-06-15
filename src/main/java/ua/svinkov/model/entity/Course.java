@@ -1,5 +1,7 @@
 package ua.svinkov.model.entity;
 
+import java.io.Serializable;
+
 import java.time.LocalDate;
 
 import lombok.Builder;
@@ -7,12 +9,21 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+
+/**
+ * Course entity
+ * 
+ * @author R.Svinkov
+ *
+ */
 @Getter
 @Setter
 @ToString
 @Builder
-public class Course {
-	
+public class Course implements Serializable {
+
+	private static final long serialVersionUID = -1334870106776022108L;
+
 	private int courseid;
 	private String course;
 	private Topic topic;

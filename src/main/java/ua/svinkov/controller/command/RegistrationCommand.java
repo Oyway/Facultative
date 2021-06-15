@@ -1,4 +1,4 @@
-package ua.svinkov.controller.Command;
+package ua.svinkov.controller.command;
 
 import java.util.Objects;
 
@@ -10,7 +10,15 @@ import ua.svinkov.constants.Path;
 import ua.svinkov.model.entity.User;
 import ua.svinkov.service.UserService;
 
-public class RegistrationCommand implements Command {
+/**
+ * Registration command
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class RegistrationCommand extends Command {
+
+	private static final long serialVersionUID = 4439998128044370742L;
 
 	private static final Logger log = Logger.getLogger(RegistrationCommand.class);
 
@@ -33,8 +41,8 @@ public class RegistrationCommand implements Command {
 			log.error("errorMessage --> " + errorMessage);
 			return Path.PAGE_REGISTRATION;
 		}
-		
-		if(!email.matches(REGEX_EMAIL)) {
+
+		if (!email.matches(REGEX_EMAIL)) {
 			errorMessage = "Email must be correct(Example@gmail.com)";
 			request.setAttribute("errorMessage", errorMessage);
 			log.error("errorMessage --> " + errorMessage);
@@ -56,6 +64,11 @@ public class RegistrationCommand implements Command {
 		return Path.PAGE_LOGIN;
 	}
 
+	/**
+	 * Validation of input data
+	 * 
+	 * @return result of checking params
+	 */
 	private boolean validation(String login, String pass, String email, String firstName, String surname) {
 		boolean valid = false;
 		if (Objects.isNull(login) || login.equals(EMPTY_LINE)) {

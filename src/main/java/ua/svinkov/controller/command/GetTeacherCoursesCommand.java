@@ -1,4 +1,4 @@
-package ua.svinkov.controller.Command;
+package ua.svinkov.controller.command;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,7 +19,15 @@ import ua.svinkov.model.entity.UserCourses;
 import ua.svinkov.model.entity.enums.Role;
 import ua.svinkov.service.CoursesService;
 
-public class GetTeacherCoursesCommand implements Command {
+/**
+ * Get teachers courses
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class GetTeacherCoursesCommand extends Command {
+
+	private static final long serialVersionUID = 2510064395175234551L;
 
 	private static final Logger log = Logger.getLogger(LoginCommand.class);
 

@@ -1,4 +1,4 @@
-package ua.svinkov.controller.Command;
+package ua.svinkov.controller.command;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,7 +15,15 @@ import ua.svinkov.model.entity.UserCourses;
 import ua.svinkov.model.entity.enums.Role;
 import ua.svinkov.service.CoursesService;
 
-public class GetActiveCoursesCommand implements Command {
+/**
+ * Get active courses of user item
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class GetActiveCoursesCommand extends Command {
+
+	private static final long serialVersionUID = 3465301228439569669L;
 
 	private static final Logger log = Logger.getLogger(LoginCommand.class);
 	

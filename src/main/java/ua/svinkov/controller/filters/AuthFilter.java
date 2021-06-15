@@ -15,6 +15,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+/**
+ * Authorization filter
+ * 
+ * @author R.Svinkov
+ *
+ */
 public class AuthFilter implements Filter {
 
 	private static final Logger log = Logger.getLogger(AuthFilter.class);
@@ -47,27 +53,26 @@ public class AuthFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain)
 			throws IOException, ServletException {
-		
+
 		log.debug("Filter starts");
-		
+
 		if (accessAllowed(request)) {
 			log.debug("Filter finished");
 			filterChain.doFilter(request, response);
 		} else {
 			String errorMessasge = "You do not have permission to access the requested resource";
-			
+
 			request.setAttribute("errorMessage", errorMessasge);
 			log.trace("Set the request attribute: errorMessage --> " + errorMessasge);
-			
-			request.getRequestDispatcher("login.jsp")
-					.forward(request, response);
+
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
 
 	private boolean accessAllowed(ServletRequest request) {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		String commandName = httpRequest.getRequestURI();
-		commandName = commandName.replaceAll(".*/Facultative/" , "");
+		commandName = commandName.replaceAll(".*/Facultative/", "");
 		if (commandName == null || commandName.isEmpty())
 			return false;
 

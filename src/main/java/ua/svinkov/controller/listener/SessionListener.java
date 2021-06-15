@@ -7,7 +7,12 @@ import ua.svinkov.model.entity.User;
 
 import java.util.HashSet;
 
-
+/**
+ * Session listener
+ * 
+ * @author R.Svinkov
+ *
+ */
 public class SessionListener implements HttpSessionListener {
     @Override
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {

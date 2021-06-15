@@ -1,4 +1,4 @@
-package ua.svinkov.controller.Command;
+package ua.svinkov.controller.command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,8 +9,15 @@ import ua.svinkov.constants.Path;
 import ua.svinkov.model.entity.User;
 import ua.svinkov.service.CoursesService;
 
-public class SetMarkCommand implements Command {
+/**
+ * Set marks items
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class SetMarkCommand extends Command {
 	
+	private static final long serialVersionUID = 7013312063945940667L;
 	private static final Logger log = Logger.getLogger(SetMarkCommand.class);
 
 	@Override

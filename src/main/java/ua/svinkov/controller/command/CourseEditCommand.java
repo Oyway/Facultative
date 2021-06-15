@@ -1,4 +1,4 @@
-package ua.svinkov.controller.Command;
+package ua.svinkov.controller.command;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -13,7 +13,15 @@ import ua.svinkov.model.entity.Topic;
 import ua.svinkov.model.entity.User;
 import ua.svinkov.service.CoursesService;
 
-public class CourseEditCommand implements Command {
+/**
+ * Edit course item
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class CourseEditCommand extends Command {
+
+	private static final long serialVersionUID = 1524296463662484015L;
 
 	private static final Logger log = Logger.getLogger(CourseEditCommand.class);
 

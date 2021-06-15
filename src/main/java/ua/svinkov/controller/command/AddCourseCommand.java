@@ -1,4 +1,4 @@
-package ua.svinkov.controller.Command;
+package ua.svinkov.controller.command;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -13,7 +13,15 @@ import ua.svinkov.model.entity.Topic;
 import ua.svinkov.model.entity.User;
 import ua.svinkov.service.CoursesService;
 
-public class AddCourseCommand implements Command {
+/**
+ * Add courses command for admin
+ * 
+ * @author R.Svinkov
+ *
+ */
+public class AddCourseCommand extends Command {
+
+	private static final long serialVersionUID = -5707789410493061581L;
 
 	private static final Logger log = Logger.getLogger(AddCourseCommand.class);
 
@@ -58,6 +66,11 @@ public class AddCourseCommand implements Command {
 		return Path.REDIRECT + Path.PAGE_ADMIN;
 	}
 
+	/**
+	 * Validation of parameters for course
+	 * 
+	 * @return result of validation
+	 */
 	private boolean validation(HttpServletRequest request) {
 		boolean valid = true;
 		if (Objects.isNull(request.getParameter(PARAM_COURSE))

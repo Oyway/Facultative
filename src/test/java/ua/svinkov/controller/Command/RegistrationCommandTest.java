@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ua.svinkov.constants.Path;
+import ua.svinkov.controller.command.RegistrationCommand;
 import ua.svinkov.model.dao.impl.ConnectionPoolHolder;
 
 class RegistrationCommandTest {

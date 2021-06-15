@@ -1,5 +1,11 @@
 package ua.svinkov.constants;
 
+/**
+ * Path holder
+ * 
+ * @author R.Svinkov
+ *
+ */
 public class Path {
 	public static final String REDIRECT = "redirect:";
 	public static final String PAGE_ADMIN = "/admin";
