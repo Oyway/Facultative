@@ -11,6 +11,14 @@ public class SqlConstants {
 	public final static String FIND_ALL_COURSE = "SELECT courses.*, topics.topic, users.* "
 			+ " FROM courses inner join topics on courses.topicid=topics.topicid "
 			+ " inner join users on courses.teacherid=users.userid";
+	
+	public final static String FIND_ALL_COURSE_COUNT = "SELECT COUNT(*) as count "
+			+ " FROM courses inner join topics on courses.topicid=topics.topicid "
+			+ " inner join users on courses.teacherid=users.userid";
+	
+	public final static String FIND_ALL_COURSE_LIMIT = "SELECT courses.*, topics.topic, users.* "
+			+ " FROM courses inner join topics on courses.topicid=topics.topicid "
+			+ " inner join users on courses.teacherid=users.userid LIMIT ?, ?";
 
 	public final static String FIND_ALL_BY_TEACHER_ID = "SELECT users_courses.*, courses.*, topics.topic, student.* "
 			+ " FROM users_courses inner join courses on users_courses.courseid=courses.courseid "

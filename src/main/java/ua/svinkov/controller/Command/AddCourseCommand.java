@@ -44,8 +44,8 @@ public class AddCourseCommand extends Command {
 		}
 
 		String course = request.getParameter(PARAM_COURSE);
-		Integer topicId = Integer.parseInt(request.getParameter(PARAM_OPTION_TOPICS));
-		Integer teacher = Integer.parseInt(request.getParameter(PARAM_OPTION_TEACHER));
+		Long topicId = Long.parseLong(request.getParameter(PARAM_OPTION_TOPICS));
+		Long teacher = Long.parseLong(request.getParameter(PARAM_OPTION_TEACHER));
 		LocalDate dateStart = LocalDate.parse(request.getParameter(PARAM_DATE_START));
 		LocalDate dateEnd = LocalDate.parse(request.getParameter(PARAM_DATE_END));
 		String description = request.getParameter(PARAM_DESCRIPTION);

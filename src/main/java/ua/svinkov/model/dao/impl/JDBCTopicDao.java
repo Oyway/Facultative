@@ -31,7 +31,7 @@ public class JDBCTopicDao implements TopicDao {
 	}
 
 	@Override
-	public Topic findById(int id) {
+	public Topic findById(Long id) {
 		return null;
 	}
 
@@ -58,7 +58,7 @@ public class JDBCTopicDao implements TopicDao {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(Long id) {
 
 	}
 

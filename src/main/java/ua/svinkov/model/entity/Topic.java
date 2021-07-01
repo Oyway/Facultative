@@ -21,7 +21,7 @@ public class Topic implements Serializable {
 
 	private static final long serialVersionUID = -1152859079593570366L;
 
-	private int topicId;
+	private Long topicId;
 	private String topic;
 
 }

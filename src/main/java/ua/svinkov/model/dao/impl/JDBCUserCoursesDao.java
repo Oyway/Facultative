@@ -31,8 +31,8 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 	public void create(UserCourses entity) {
 		try (PreparedStatement pstmt = connection.prepareStatement(SqlConstants.INSERT_USER_COURSES)) {
 
-			pstmt.setInt(1, entity.getUser().getUserid());
-			pstmt.setInt(2, entity.getCourse().getCourseid());
+			pstmt.setLong(1, entity.getUser().getUserid());
+			pstmt.setLong(2, entity.getCourse().getCourseid());
 			pstmt.execute();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -40,7 +40,7 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 	}
 
 	@Override
-	public UserCourses findById(int id) {
+	public UserCourses findById(Long id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -51,7 +51,7 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 	 * @param id of user
 	 * @return list of UserCourses entity
 	 */
-	public List<UserCourses> findAllById(int id) {
+	public List<UserCourses> findAllById(Long id) {
 		List<UserCourses> user = new ArrayList<>();
 		ResultSet rs = null;
 		ResultSet rs1 = null;
@@ -59,11 +59,11 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 				PreparedStatement st1 = connection.prepareStatement(SqlConstants.FIND_USER_BY_ID)) {
 			connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 			UserCoursesMapper mapper = new UserCoursesMapper();
-			st.setInt(1, id);
+			st.setLong(1, id);
 			rs = st.executeQuery();
 			while (rs.next()) {
 				UserCourses us = mapper.extractFromResultSet(rs);
-				st1.setInt(1, us.getCourse().getTeacher().getUserid());
+				st1.setLong(1, us.getCourse().getTeacher().getUserid());
 				rs1 = st1.executeQuery();
 				if (rs1.next())
 					us.getCourse().setTeacher(new UserMapper().extractFromResultSet(rs1));
@@ -83,13 +83,13 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 	 * @param id of teacher
 	 * @return
 	 */
-	public List<UserCourses> findAllByTeacherId(int id) {
+	public List<UserCourses> findAllByTeacherId(Long id) {
 		List<UserCourses> user = new ArrayList<>();
 		ResultSet rs = null;
 
 		try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_ALL_BY_TEACHER_ID)) {
 			UserCoursesMapper mapper = new UserCoursesMapper();
-			st.setInt(1, id);
+			st.setLong(1, id);
 			rs = st.executeQuery();
 			while (rs.next()) {
 				user.add(mapper.extractFromResultSet(rs));
@@ -110,12 +110,12 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 	 * @param courseid  identity code for course
 	 * @return user course
 	 */
-	public boolean findUserCourse(int studentid, int courseid) {
+	public boolean findUserCourse(Long studentid, Long courseid) {
 		boolean result = false;
 		ResultSet rs = null;
 		try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_USER_COURSES_BY_USER_AND_COURSE)) {
-			st.setInt(1, studentid);
-			st.setInt(2, courseid);
+			st.setLong(1, studentid);
+			st.setLong(2, courseid);
 			rs = st.executeQuery();
 			if (rs.next())
 				result = true;
@@ -136,8 +136,8 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 	public void update(UserCourses entity) {
 		try (PreparedStatement st = connection.prepareStatement(SqlConstants.UPDATE_USER_COURSES_MARK)) {
 			st.setInt(1, entity.getMark());
-			st.setInt(2, entity.getUser().getUserid());
-			st.setInt(3, entity.getCourse().getCourseid());
+			st.setLong(2, entity.getUser().getUserid());
+			st.setLong(3, entity.getCourse().getCourseid());
 			st.executeUpdate();
 		} catch (SQLException ex) {
 			throw new RuntimeException(ex);
@@ -145,7 +145,7 @@ public class JDBCUserCoursesDao implements UserCoursesDao {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(Long id) {
 		// TODO Auto-generated method stub
 
 	}

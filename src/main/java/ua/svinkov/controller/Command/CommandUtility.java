@@ -43,4 +43,21 @@ class CommandUtility {
 		request.getSession().getServletContext().setAttribute("loggedUsers", loggedUsers);
 		return false;
 	}
+	
+	/**
+	 * 
+	 * @param userName User login
+	 * @return if user logged or not
+	 */
+	static boolean removeUserFromLogged(HttpServletRequest request, String userName) {
+		HashSet<String> loggedUsers = (HashSet<String>) request.getSession().getServletContext()
+				.getAttribute("loggedUsers");
+
+		if (loggedUsers.stream().anyMatch(userName::equals)) {
+			loggedUsers.remove(userName);
+			request.getSession().getServletContext().setAttribute("loggedUsers", loggedUsers);
+			return true;
+		}
+		return false;
+	}
 }

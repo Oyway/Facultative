@@ -46,23 +46,25 @@ public class ViewAllUsersCommand extends Command {
 		forward = Path.REDIRECT + Path.PAGE_USERS;
 		String query = request.getQueryString();
 		if (Objects.nonNull(query) && query.startsWith(BLOCK)) {
-			int userId = Integer.parseInt(request.getParameter(BLOCK));
+			Long userId = Long.parseLong(request.getParameter(BLOCK));
 			User userUpdate = userService.findById(userId);
 			userUpdate.setStatus(false);
 			userService.updateUser(userUpdate);
+			CommandUtility.removeUserFromLogged(request, userUpdate.getLogin());
 			return forward;
 		} else if (Objects.nonNull(query) && query.startsWith(UNBLOCK)) {
-			int userId = Integer.parseInt(request.getParameter(UNBLOCK));
+			Long userId = Long.parseLong(request.getParameter(UNBLOCK));
 			User userUpdate = userService.findById(userId);
 			userUpdate.setStatus(true);
 			userService.updateUser(userUpdate);
 			return forward;
 		} else if (Objects.nonNull(query) && query.startsWith(UPDATE)) {
-			int userId = Integer.parseInt(request.getParameter(UPDATE));
+			Long userId = Long.parseLong(request.getParameter(UPDATE));
 			String userRole = request.getParameter("optionRoles" + userId);
 			User userUpdate = userService.findById(userId);
 			userUpdate.setRole(Role.valueOf(userRole));
 			userService.updateUser(userUpdate);
+			CommandUtility.removeUserFromLogged(request, userUpdate.getLogin());
 			return forward;
 		}
 		forward = Path.PAGE_ADMIN_USERS;

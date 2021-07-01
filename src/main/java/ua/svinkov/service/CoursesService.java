@@ -27,11 +27,31 @@ public class CoursesService {
 	 * @return list of courses
 	 */
 	public List<Course> findAll() {
-		List<Course> courses = null;
 		try (JDBCCourseDao dao = (JDBCCourseDao) factory.createCourseDao()) {
-			courses = dao.findAll();
+			return dao.findAll();
 		}
-		return courses;
+	}
+
+	/**
+	 * Find all courses in table with pagination
+	 * 
+	 * @return list of courses
+	 */
+	public List<Course> findAllLimit(int offset, int limit) {
+		try (JDBCCourseDao dao = (JDBCCourseDao) factory.createCourseDao()) {
+			return dao.findAll(offset, limit);
+		}
+	}
+
+	/**
+	 * Find all courses count
+	 * 
+	 * @return list of courses
+	 */
+	public Integer findAllCount() {
+		try (JDBCCourseDao dao = (JDBCCourseDao) factory.createCourseDao()) {
+			return dao.findRowsCount();
+		}
 	}
 
 	/**
@@ -41,7 +61,7 @@ public class CoursesService {
 	 * @param courseId  course id
 	 * @param mark      mark that teacher set in journal
 	 */
-	public void updateMark(int studentId, int courseId, int mark) {
+	public void updateMark(Long studentId, Long courseId, int mark) {
 		UserCourses userCourses = new UserCourses();
 		userCourses.setCourse(Course.builder().courseid(courseId).build());
 		userCourses.setUser(User.builder().userid(studentId).build());
@@ -58,11 +78,9 @@ public class CoursesService {
 	 * @return list of courses for user
 	 */
 	public List<UserCourses> findUserCourses(User user) {
-		List<UserCourses> courses = null;
 		try (JDBCUserCoursesDao dao = (JDBCUserCoursesDao) factory.createUserCoursesDao()) {
-			courses = dao.findAllById(user.getUserid());
+			return dao.findAllById(user.getUserid());
 		}
-		return courses;
 	}
 
 	/**
@@ -71,11 +89,9 @@ public class CoursesService {
 	 * @return list of topics
 	 */
 	public List<Topic> findAllTopics() {
-		List<Topic> topics = null;
 		try (JDBCTopicDao dao = (JDBCTopicDao) factory.createTopicDao()) {
-			topics = dao.findAll();
+			return dao.findAll();
 		}
-		return topics;
 	}
 
 	/**
@@ -94,7 +110,7 @@ public class CoursesService {
 	 * 
 	 * @param id id of course entity that will be deleted
 	 */
-	public void deleteCourse(int id) {
+	public void deleteCourse(Long id) {
 		try (JDBCCourseDao dao = (JDBCCourseDao) factory.createCourseDao()) {
 			dao.delete(id);
 		}
@@ -106,12 +122,10 @@ public class CoursesService {
 	 * @param id id of course entity
 	 * @return course entity
 	 */
-	public Course findCourseById(int id) {
-		Course courses = null;
+	public Course findCourseById(Long id) {
 		try (JDBCCourseDao dao = (JDBCCourseDao) factory.createCourseDao()) {
-			courses = dao.findById(id);
+			return dao.findById(id);
 		}
-		return courses;
 	}
 
 	/**
@@ -131,12 +145,10 @@ public class CoursesService {
 	 * @param teacherid teacher id in course entity
 	 * @return list of courses id
 	 */
-	public List<Integer> findCoursesSortedByCountSt(int teacherid) {
-		List<Integer> ids = null;
+	public List<Long> findCoursesSortedByCountSt(Long teacherid) {
 		try (JDBCCourseDao dao = (JDBCCourseDao) factory.createCourseDao()) {
-			ids = dao.findCoursesIdSortBySt(teacherid);
+			return dao.findCoursesIdSortBySt(teacherid);
 		}
-		return ids;
 	}
 
 	/**
@@ -145,12 +157,10 @@ public class CoursesService {
 	 * @param id teacher id for courses
 	 * @return list of UserCourses entity
 	 */
-	public List<UserCourses> findAllByTeacherId(int id) {
-		List<UserCourses> courses = null;
+	public List<UserCourses> findAllByTeacherId(Long id) {
 		try (JDBCUserCoursesDao dao = (JDBCUserCoursesDao) factory.createUserCoursesDao()) {
-			courses = dao.findAllByTeacherId(id);
+			return dao.findAllByTeacherId(id);
 		}
-		return courses;
 	}
 
 }

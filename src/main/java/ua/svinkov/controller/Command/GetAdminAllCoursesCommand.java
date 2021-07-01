@@ -1,6 +1,5 @@
 package ua.svinkov.controller.Command;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -57,32 +56,30 @@ public class GetAdminAllCoursesCommand extends Command {
 		}
 
 		if (Objects.nonNull(request.getParameter(PARAM_DELETE))) {
-			int courseId = Integer.parseInt(request.getParameter(PARAM_DELETE));
+			Long courseId = Long.parseLong(request.getParameter(PARAM_DELETE));
 			courseService.deleteCourse(courseId);
 		}
 
-		List<Course> courses = courseService.findAll();
-		List<Topic> topics = courseService.findAllTopics();
-		List<User> teachers = userService.findAllTeachers();
-		log.trace("Found in DB: courses --> " + courses);
-
 		int tempPage = 1;
-		int recordsPerPage = 5;
+		int recordsPerPage = 3;
 		if (Objects.nonNull(request.getParameter(PARAM_PAGE)))
 			tempPage = Integer.parseInt(request.getParameter(PARAM_PAGE));
 		int page = tempPage;
 
-		Integer pageTotale = (int) Math.ceil(courses.size() * 1.0 / recordsPerPage);
+		List<Course> courses = courseService.findAllLimit((page - 1) * recordsPerPage, page * recordsPerPage);
+		List<Topic> topics = courseService.findAllTopics();
+		List<User> teachers = userService.findAllTeachers();
+
+		Integer rowsTottal = courseService.findAllCount();
+		log.trace("Found in DB: rowsTottal --> " + rowsTottal);
+		log.trace("Found in DB: courses --> " + courses);
+		Integer pageTotale = (int) Math.ceil(rowsTottal * 1.0 / recordsPerPage);
 		log.trace("Found in DB: user --> " + user);
 
 		log.trace("Found in DB: courses --> " + courses);
 		log.trace("Found in courses: pageTotale --> " + pageTotale);
-		List<Course> coursesCurrentPage = new ArrayList<>();
-		for (int i = (page - 1) * recordsPerPage; i < courses.size() && i < page * recordsPerPage; i++) {
-			coursesCurrentPage.add(courses.get(i));
-		}
-		log.trace("Found in courses: coursesCurrentPage --> " + coursesCurrentPage);
-		session.setAttribute("allCourses", coursesCurrentPage);
+
+		session.setAttribute("allCourses", courses);
 		session.setAttribute("allTopics", topics);
 		session.setAttribute("allTeachers", teachers);
 		request.setAttribute("noOfPages", pageTotale);
