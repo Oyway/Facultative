@@ -39,19 +39,19 @@ class CoursesServiceTest {
 
 	@Test
 	void testUpdateMark() {
-		User user = new UserService().findById(1);
+		User user = new UserService().findById(1L);
 		CoursesService us = new CoursesService();
-		us.updateMark(1, 3, 20);
+		us.updateMark(1L, 3L, 20);
 		List<UserCourses> userCourses = us.findUserCourses(user);
 		userCourses.stream().filter(t -> t.getCourse().getCourseid() == 3);
 		int expected = 20;
 		assertEquals(expected, userCourses.get(0).getMark());
-		us.updateMark(1, 3, 100);
+		us.updateMark(1L, 3L, 100);
 	}
 
 	@Test
 	void testFindUserCourses() {
-		User user = new UserService().findById(1);
+		User user = new UserService().findById(1L);
 		CoursesService us = new CoursesService();
 		List<UserCourses> userCourses = us.findUserCourses(user);
 		int expected = 2;
@@ -70,8 +70,8 @@ class CoursesServiceTest {
 	void testCreateCourse() {
 		CoursesService us = new CoursesService();
 		int countBefore = us.findAll().size();
-		Topic topic = Topic.builder().topicId(7).build();
-		User teacher = new UserService().findById(2);
+		Topic topic = Topic.builder().topicId(7L).build();
+		User teacher = new UserService().findById(2L);
 		Course course = Course.builder().course("Test").topic(topic).teacher(teacher)
 				.dateStart(LocalDate.now()).dateEnd(LocalDate.now().plusDays(10)).description("Test").build();
 		us.createCourse(course);
@@ -84,7 +84,7 @@ class CoursesServiceTest {
 	@Test
 	void testFindCourseById() {
 		CoursesService us = new CoursesService();
-		Course course = us.findCourseById(3);
+		Course course = us.findCourseById(3L);
 		String expected = "Java Core";
 		assertEquals(expected, course.getCourse());
 	}
@@ -92,12 +92,12 @@ class CoursesServiceTest {
 	@Test
 	void testUpdateCourse() {
 		CoursesService us = new CoursesService();
-		Course course = us.findCourseById(3);
+		Course course = us.findCourseById(3L);
 		String descrBefore = course.getDescription();
 		assertEquals("Java", descrBefore);
 		course.setDescription("None");
 		us.updateCourse(course);
-		course = us.findCourseById(3);
+		course = us.findCourseById(3L);
 		assertEquals("None", course.getDescription());
 		course.setDescription(descrBefore);
 		us.updateCourse(course);
@@ -106,7 +106,7 @@ class CoursesServiceTest {
 	@Test
 	void testFindAllByTeacherId() {
 		CoursesService us = new CoursesService();
-		List<UserCourses> course = us.findAllByTeacherId(2);
+		List<UserCourses> course = us.findAllByTeacherId(2L);
 		int expected = 1;
 		assertEquals(expected, course.size());
 	}

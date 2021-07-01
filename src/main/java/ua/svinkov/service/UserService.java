@@ -40,7 +40,7 @@ public class UserService {
 	 * @param id id of user
 	 * @return user entity
 	 */
-	public User findById(int id) {
+	public User findById(Long id) {
 		User user = null;
 		try (JDBCUserDao dao = (JDBCUserDao) factory.createUserDao()) {
 			user = dao.findById(id);

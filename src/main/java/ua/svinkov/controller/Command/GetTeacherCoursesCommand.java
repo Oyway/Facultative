@@ -59,8 +59,8 @@ public class GetTeacherCoursesCommand extends Command {
 		}
 
 		List<UserCourses> courses = new CoursesService().findAllByTeacherId(user.getUserid());
-		List<Integer> pageTotaleTemp = new ArrayList<>();
-		Set<Integer> pageTotaleSetTemp = new HashSet<>();
+		List<Long> pageTotaleTemp = new ArrayList<>();
+		Set<Long> pageTotaleSetTemp = new HashSet<>();
 
 		if (Objects.nonNull(request.getParameter("update"))) {
 			String sortType = request.getParameter("optionSort");
@@ -86,7 +86,7 @@ public class GetTeacherCoursesCommand extends Command {
 		if (pageTotaleTemp.isEmpty())
 			pageTotaleTemp = new ArrayList<>(pageTotaleSetTemp);
 
-		List<Integer> pageTotal = new ArrayList<>(pageTotaleTemp);
+		List<Long> pageTotal = new ArrayList<>(pageTotaleTemp);
 
 		log.trace("Found in DB: courses --> " + courses);
 		log.trace("Found in courses: pageTotale --> " + pageTotal);

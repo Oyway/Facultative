@@ -15,10 +15,10 @@ public class UserCoursesMapper implements ObjectMapper<UserCourses> {
 		UserCourses userCourses = new UserCourses();
 		UserMapper mapper = new UserMapper();
 		Course course = Course.builder()
-				.courseid(rs.getInt("courseid"))
+				.courseid(rs.getLong("courseid"))
 				.course(rs.getString("course"))
 				.topic(new TopicMapper().extractFromResultSet(rs))
-				.teacher(User.builder().userid(rs.getInt("teacherid")).build())
+				.teacher(User.builder().userid(rs.getLong("teacherid")).build())
 				.dateStart(rs.getDate("date_start").toLocalDate())
 				.dateEnd(rs.getDate("date_stop").toLocalDate())
 				.description(rs.getString("descr"))
@@ -30,7 +30,7 @@ public class UserCoursesMapper implements ObjectMapper<UserCourses> {
 	}
 
 	@Override
-	public UserCourses makeUnique(Map<Integer, UserCourses> cache, UserCourses userCourses) {
+	public UserCourses makeUnique(Map<Long, UserCourses> cache, UserCourses userCourses) {
 		cache.putIfAbsent(userCourses.getUser().getUserid(), userCourses);
 		return cache.get(userCourses.getUser().getUserid());
 	}

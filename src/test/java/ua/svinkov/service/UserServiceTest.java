@@ -36,7 +36,7 @@ class UserServiceTest {
 	@Test
 	void testFindById() {
 		UserService us = new UserService();
-		User user = us.findById(1);
+		User user = us.findById(1L);
 		String expected = "user";
 		assertEquals(expected, user.getLogin());
 	}

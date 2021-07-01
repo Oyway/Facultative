@@ -33,8 +33,8 @@ public class SetMarkCommand extends Command {
 			return forward;
 		}
 		
-		int studentid = Integer.parseInt(request.getParameter("studentid"));
-		int curseid = Integer.parseInt(request.getParameter("courseid"));
+		Long studentid = Long.parseLong(request.getParameter("studentid"));
+		Long curseid = Long.parseLong(request.getParameter("courseid"));
 		int mark = Integer.parseInt(request.getParameter("mark"));
 		
 		new CoursesService().updateMark(studentid, curseid, mark);

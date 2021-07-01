@@ -58,7 +58,7 @@ public class RegistrationCommand extends Command {
 		}
 		log.trace("Found in DB: user --> " + userCheck);
 		System.out.println(login + " " + pass);
-		User user = User.builder().userid(0).login(login).password(pass).email(email).firstName(firstName)
+		User user = User.builder().userid(0L).login(login).password(pass).email(email).firstName(firstName)
 				.surname(surname).role(null).build();
 		new UserService().createUser(user);
 		return Path.PAGE_LOGIN;

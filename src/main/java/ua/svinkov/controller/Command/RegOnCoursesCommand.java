@@ -48,8 +48,8 @@ public class RegOnCoursesCommand extends Command {
 		for (int i = 0; i < id.length; i++) {
 			UserCourses courses = new UserCourses();
 			courses.setUser(user);
-			courses.setCourse(Course.builder().courseid(Integer.parseInt(id[i])).build());
-			if (!dao.findUserCourse(user.getUserid(), Integer.parseInt(id[i]))) {
+			courses.setCourse(Course.builder().courseid(Long.parseLong(id[i])).build());
+			if (!dao.findUserCourse(user.getUserid(), Long.parseLong(id[i]))) {
 				dao.create(courses);
 				log.trace("Insert in DB: users_courses --> " + courses);
 				regMessage.append("Complete reg to course ").append(Integer.parseInt(id[i])).append(" ");

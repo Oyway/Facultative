@@ -29,8 +29,8 @@ public class JDBCCourseDao implements CourseDao {
 	public void create(Course entity) {
 		try (PreparedStatement pstmt = connection.prepareStatement(SqlConstants.INSERT_COURSE)) {
 			pstmt.setString(1, entity.getCourse());
-			pstmt.setInt(2, entity.getTopic().getTopicId());
-			pstmt.setInt(3, entity.getTeacher().getUserid());
+			pstmt.setLong(2, entity.getTopic().getTopicId());
+			pstmt.setLong(3, entity.getTeacher().getUserid());
 			pstmt.setDate(4, java.sql.Date.valueOf(entity.getDateStart()));
 			pstmt.setDate(5, java.sql.Date.valueOf(entity.getDateEnd()));
 			pstmt.setString(6, entity.getDescription());
@@ -41,12 +41,12 @@ public class JDBCCourseDao implements CourseDao {
 	}
 
 	@Override
-	public Course findById(int id) {
+	public Course findById(Long id) {
 		Course course = null;
 		ResultSet rs = null;
 		try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_COURSE_BY_ID)) {
 			CourseMapper mapper = new CourseMapper();
-			st.setInt(1, id);
+			st.setLong(1, id);
 			rs = st.executeQuery();
 			if (rs.next())
 				course = mapper.extractFromResultSet(rs);
@@ -73,16 +73,48 @@ public class JDBCCourseDao implements CourseDao {
 		return course;
 	}
 
+	public List<Course> findAll(int offset, int limit) {
+		List<Course> course = new ArrayList<>();
+		ResultSet rs = null;
+		try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_ALL_COURSE_LIMIT)) {
+			st.setInt(1, offset);
+			st.setInt(2, limit);
+			CourseMapper mapper = new CourseMapper();
+			rs = st.executeQuery();
+			while (rs.next())
+				course.add(mapper.extractFromResultSet(rs));
+			rs.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return course;
+	}
+
+	public Integer findRowsCount() {
+		Integer result = null;
+		ResultSet rs = null;
+		try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_ALL_COURSE_COUNT)) {
+			rs = st.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
+
 	@Override
 	public void update(Course entity) {
 		try (PreparedStatement st = connection.prepareStatement(SqlConstants.UPDATE_COURSE)) {
 			st.setString(1, entity.getCourse());
-			st.setInt(2, entity.getTopic().getTopicId());
-			st.setInt(3, entity.getTeacher().getUserid());
+			st.setLong(2, entity.getTopic().getTopicId());
+			st.setLong(3, entity.getTeacher().getUserid());
 			st.setDate(4, java.sql.Date.valueOf(entity.getDateStart()));
 			st.setDate(5, java.sql.Date.valueOf(entity.getDateEnd()));
 			st.setString(6, entity.getDescription());
-			st.setInt(7, entity.getCourseid());
+			st.setLong(7, entity.getCourseid());
 			st.executeUpdate();
 		} catch (SQLException ex) {
 
@@ -91,9 +123,9 @@ public class JDBCCourseDao implements CourseDao {
 	}
 
 	@Override
-	public void delete(int id) {
+	public void delete(Long id) {
 		try (PreparedStatement pstmt = connection.prepareStatement(SqlConstants.DELETE_COURSE)) {
-			pstmt.setInt(1, id);
+			pstmt.setLong(1, id);
 			pstmt.execute();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -107,14 +139,14 @@ public class JDBCCourseDao implements CourseDao {
 	 * @param teacherid for needed courses
 	 * @return list of courses id
 	 */
-	public List<Integer> findCoursesIdSortBySt(int teacherid) {
-		List<Integer> course = new ArrayList<>();
+	public List<Long> findCoursesIdSortBySt(Long teacherid) {
+		List<Long> course = new ArrayList<>();
 		ResultSet rs = null;
 		try (PreparedStatement st = connection.prepareStatement(SqlConstants.FIND_COURSE_BY_ID_SORTED)) {
-			st.setInt(1, teacherid);
+			st.setLong(1, teacherid);
 			rs = st.executeQuery();
 			while (rs.next())
-				course.add(rs.getInt("courseid"));
+				course.add(rs.getLong("courseid"));
 			rs.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);

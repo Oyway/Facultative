@@ -16,7 +16,7 @@ public interface GenericDao<T> extends AutoCloseable {
 	 * @param id of entity
 	 * @return entity
 	 */
-	T findById(int id);
+	T findById(Long id);
 
 	/**
 	 * find all entity in table
@@ -37,5 +37,5 @@ public interface GenericDao<T> extends AutoCloseable {
 	 * 
 	 * @param id of entity
 	 */
-	void delete(int id);
+	void delete(Long id);
 }

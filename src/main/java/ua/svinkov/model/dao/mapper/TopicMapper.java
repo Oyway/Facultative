@@ -8,14 +8,13 @@ import ua.svinkov.model.entity.Topic;
 
 public class TopicMapper implements ObjectMapper<Topic> {
 
-    @Override
-    public Topic extractFromResultSet(ResultSet rs) throws SQLException {
-        return Topic.builder().topicId(rs.getInt("topicid")).topic(rs.getString("topic")).build();
-    }
+	@Override
+	public Topic extractFromResultSet(ResultSet rs) throws SQLException {
+		return Topic.builder().topicId(rs.getLong("topicid")).topic(rs.getString("topic")).build();
+	}
 
-    public Topic makeUnique(Map<Integer, Topic> cache,
-    		Topic topic) {
-        cache.putIfAbsent(topic.getTopicId(), topic);
-        return cache.get(topic.getTopicId());
-    }
+	public Topic makeUnique(Map<Long, Topic> cache, Topic topic) {
+		cache.putIfAbsent(topic.getTopicId(), topic);
+		return cache.get(topic.getTopicId());
+	}
 }

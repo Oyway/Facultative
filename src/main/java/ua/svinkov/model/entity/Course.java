@@ -24,7 +24,7 @@ public class Course implements Serializable {
 
 	private static final long serialVersionUID = -1334870106776022108L;
 
-	private int courseid;
+	private Long courseid;
 	private String course;
 	private Topic topic;
 	private User teacher;

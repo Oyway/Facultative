@@ -39,18 +39,18 @@ public class CourseEditCommand extends Command {
 	public String execute(HttpServletRequest request) {
 		CoursesService serv = new CoursesService();
 		if (Objects.nonNull(request.getQueryString()) && request.getQueryString().equals(PARAM_EDIT)) {
-			Course course = Course.builder().courseid(Integer.parseInt(request.getParameter(PARAM_COURSE_ID)))
+			Course course = Course.builder().courseid(Long.parseLong(request.getParameter(PARAM_COURSE_ID)))
 					.course(request.getParameter(PARAM_COURSE_NAME))
-					.topic(Topic.builder().topicId(Integer.parseInt(request.getParameter(PARAM_OPTION_TOPICS))).build())
+					.topic(Topic.builder().topicId(Long.parseLong(request.getParameter(PARAM_OPTION_TOPICS))).build())
 					.teacher(
-							User.builder().userid(Integer.parseInt(request.getParameter(PARAM_OPTION_TEACHER))).build())
+							User.builder().userid(Long.parseLong(request.getParameter(PARAM_OPTION_TEACHER))).build())
 					.dateStart(LocalDate.parse(request.getParameter(PARAM_DATE_START)))
 					.dateEnd(LocalDate.parse(request.getParameter(PARAM_DATE_END)))
 					.description(request.getParameter(PARAM_DESCRIPTION)).build();
 			serv.updateCourse(course);
 			return Path.REDIRECT + Path.PAGE_ADMIN;
 		}
-		Integer courseId = Integer.parseInt(request.getParameter(PARAM_EDIT));
+		Long courseId = Long.parseLong(request.getParameter(PARAM_EDIT));
 
 		Course course = serv.findCourseById(courseId);
 		log.trace("Found in DB: course --> " + course);
